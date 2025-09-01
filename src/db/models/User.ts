@@ -5,6 +5,6 @@ export default class User extends Model {
   static table = 'users';
 
   @field('name') name!: string;
-  @field('email') email!: string;
+  @field('email') email!: string | null;
   @field('role') role!: string;
 }
