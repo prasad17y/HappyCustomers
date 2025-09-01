@@ -1,0 +1,92 @@
+export const mockData = [
+  {
+    email: 'alice.johnson@gmail.com',
+    id: 'a1b2c3d4-5678-4900-aaaa-111122223333',
+    name: 'Alice Johnson',
+    role: 'MANAGER',
+  },
+  {
+    email: 'barbara.s@gmail.com',
+    id: 'b1c2d3e4-5678-4900-bbbb-222233334444',
+    name: 'Barbara Streider',
+    role: 'ADMIN',
+  },
+  {
+    email: 'camille.c@gmail.com',
+    id: 'c1d2e3f4-5678-4900-cccc-333344445555',
+    name: 'Camille Cummerata',
+    role: 'MANAGER',
+  },
+  {
+    email: 'cris@gmail.com',
+    id: '24d34832-7c10-4c91-a582-32a0222125c0',
+    name: 'Chris Miller',
+    role: 'ADMIN',
+  },
+  {
+    email: 'david@gmail.com',
+    id: '73bae2af-4fa4-4023-8829-1034604e7590',
+    name: 'David Miller',
+    role: 'ADMIN',
+  },
+  {
+    email: 'debra.p@gmail.com',
+    id: 'd1e2f3g4-5678-4900-dddd-444455556666',
+    name: 'Debra Pfeffer',
+    role: 'ADMIN',
+  },
+  {
+    email: 'flora.h@gmail.com',
+    id: 'e1f2g3h4-5678-4900-eeee-555566667777',
+    name: 'Flora Hagenes',
+    role: 'MANAGER',
+  },
+  {
+    email: 'harley.p@gmail.com',
+    id: 'f1g2h3i4-5678-4900-ffff-666677778888',
+    name: 'Harley Peppers',
+    role: 'ADMIN',
+  },
+  {
+    email: 'isabella.t@gmail.com',
+    id: 'g1h2i3j4-5678-4900-gggg-777788889999',
+    name: 'Isabella Torres',
+    role: 'MANAGER',
+  },
+  {
+    email: 'joe@gmail.com',
+    id: 'edc033b9-ba6c-4857-9ff9-85c52ad39ef9',
+    name: 'Joe Perera',
+    role: 'MANAGER',
+  },
+  {
+    email: 'lynn@gmail.com',
+    id: 'f47813cf-0482-4326-afc9-12f53218ed06',
+    name: 'Lynn Warr',
+    role: 'MANAGER',
+  },
+  {
+    email: 'michael.c@gmail.com',
+    id: 'h1i2j3k4-5678-4900-hhhh-888899990000',
+    name: 'Michael Carter',
+    role: 'MANAGER',
+  },
+  {
+    email: 'ryan@gmail.com',
+    id: '0c90ecd4-d159-4335-9377-f29ee6829847',
+    name: 'Ryan Muller',
+    role: 'ADMIN',
+  },
+  {
+    email: 'sophie.t@gmail.com',
+    id: 'i1j2k3l4-5678-4900-iiii-999900001111',
+    name: 'Sophie Turner',
+    role: 'MANAGER',
+  },
+  {
+    email: 'zachary.l@gmail.com',
+    id: 'j1k2l3m4-5678-4900-jjjj-000011112222',
+    name: 'Zachary Lee',
+    role: 'ADMIN',
+  },
+];

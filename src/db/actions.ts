@@ -2,7 +2,7 @@ import {Q} from '@nozbe/watermelondb';
 import {database} from '.';
 import client from '../apollo/client';
 import {LIST_ZELLER_CUSTOMERS} from '../apollo/queries';
-import User from './models/User';
+import UserModel from './models/UserModel';
 
 interface ApiCustomer {
   id: string;
@@ -30,7 +30,7 @@ export const syncData = async () => {
     });
 
     await database.write(async () => {
-      const usersCollection = database.collections.get<User>('users');
+      const usersCollection = database.collections.get<UserModel>('users');
 
       // array of ids of validCustomers
       const validCustomerIds = validCustomers.map(c => c.id);
