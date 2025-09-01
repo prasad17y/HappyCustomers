@@ -1,5 +1,11 @@
 import React, {useEffect, useState, useRef, useCallback} from 'react';
-import {View, StyleSheet, ActivityIndicator, Animated} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  ActivityIndicator,
+  Animated,
+  Alert,
+} from 'react-native';
 import PagerView, {
   PagerViewOnPageScrollEventData,
 } from 'react-native-pager-view';
@@ -14,6 +20,7 @@ const TABS = ['All', 'Admin', 'Manager'];
 
 const UserListScreen = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const pagerViewRef = useRef<PagerView>(null);
 
@@ -53,6 +60,21 @@ const UserListScreen = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const onRefresh = useCallback(async () => {
+    if (isRefreshing) {
+      return;
+    }
+    setIsRefreshing(true);
+    try {
+      await syncData();
+    } catch (error) {
+      console.error('Pull to refresh failed:', error);
+      Alert.alert('Error', 'Failed to refresh users.');
+    } finally {
+      setIsRefreshing(false);
+    }
+  }, [isRefreshing]);
+
   return isLoading ? (
     <View style={styles.centered}>
       <ActivityIndicator size="large" />
@@ -72,13 +94,25 @@ const UserListScreen = () => {
         onPageSelected={e => setSelectedIndex(e.nativeEvent.position)}
         onPageScroll={handlePageScroll}>
         <View key="1">
-          <UserList users={allUsers} />
+          <UserList
+            users={allUsers}
+            refreshing={isRefreshing}
+            onRefresh={onRefresh}
+          />
         </View>
         <View key="2">
-          <UserList users={adminUsers} />
+          <UserList
+            users={adminUsers}
+            refreshing={isRefreshing}
+            onRefresh={onRefresh}
+          />
         </View>
         <View key="3">
-          <UserList users={managerUsers} />
+          <UserList
+            users={managerUsers}
+            refreshing={isRefreshing}
+            onRefresh={onRefresh}
+          />
         </View>
       </PagerView>
     </View>

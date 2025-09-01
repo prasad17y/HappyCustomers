@@ -1,10 +1,18 @@
 import React, {useMemo, useCallback} from 'react';
-import {SectionList, StyleSheet, Text, View} from 'react-native';
+import {
+  SectionList,
+  StyleSheet,
+  Text,
+  View,
+  RefreshControl,
+} from 'react-native';
 import {UserType} from '../types/types';
 import UserListItem from './UserListItem';
 
 interface UserListProps {
   users: UserType[];
+  refreshing: boolean;
+  onRefresh: () => void;
 }
 
 interface Section {
@@ -15,7 +23,7 @@ interface Section {
 const ITEM_HEIGHT = 64;
 const SECTION_HEADER_HEIGHT = 34;
 
-const UserList: React.FC<UserListProps> = ({users}) => {
+const UserList: React.FC<UserListProps> = ({users, refreshing, onRefresh}) => {
   const groupedUsers = useMemo(() => {
     return users.reduce<Section[]>((acc, user) => {
       const initial = user.name.charAt(0).toUpperCase();
@@ -96,6 +104,9 @@ const UserList: React.FC<UserListProps> = ({users}) => {
       maxToRenderPerBatch={10}
       windowSize={5}
       getItemLayout={getItemLayout}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
     />
   );
 };
