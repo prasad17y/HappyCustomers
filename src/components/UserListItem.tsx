@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import {UserType} from '../types';
+import {UserType, Role} from '../types/types';
 
 interface UserListItemProps {
   user: UserType;
@@ -21,7 +21,7 @@ const UserListItem: React.FC<UserListItemProps> = ({user}) => {
       <View style={styles.userInfo}>
         <Text style={styles.name}>{user.name}</Text>
       </View>
-      {user.role === 'ADMIN' && <Text style={styles.role}>{user.role}</Text>}
+      {user.role === Role.ADMIN && <Text style={styles.role}>Admin</Text>}
     </View>
   );
 };

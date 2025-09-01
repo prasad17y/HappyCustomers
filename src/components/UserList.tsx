@@ -1,6 +1,6 @@
 import React, {useMemo, useCallback} from 'react';
 import {SectionList, StyleSheet, Text, View} from 'react-native';
-import {UserType} from '../types';
+import {UserType} from '../types/types';
 import UserListItem from './UserListItem';
 
 interface UserListProps {

@@ -4,3 +4,8 @@ export interface UserType {
   email: string | null;
   role: string;
 }
+
+export enum Role {
+  ADMIN = 'ADMIN',
+  MANAGER = 'MANAGER',
+}

@@ -3,7 +3,10 @@ import {database} from '.';
 import client from '../apollo/client';
 import {LIST_ZELLER_CUSTOMERS} from '../apollo/queries';
 import UserModel from './models/UserModel';
+import {Role} from '../types/types';
+import {mockData} from '../mockData/UsersList';
 
+// representation of the raw JSON data we receive from the GraphQL API
 interface ApiCustomer {
   id: string;
   name: string | null;
@@ -18,11 +21,15 @@ export const syncData = async () => {
       query: LIST_ZELLER_CUSTOMERS,
     });
 
-    const customersFromAPI: ApiCustomer[] = data.listZellerCustomers.items;
+    const customersFromAPI: ApiCustomer[] = mockData;
 
     // Filter out any invalid records from the API
     const validCustomers = customersFromAPI.filter(customer => {
-      if (!customer.name || !customer.role) {
+      if (
+        !customer.name ||
+        !customer.role ||
+        !Object.values(Role).includes(customer.role as Role)
+      ) {
         console.log(`Filtering out invalid user from API: ID ${customer.id}`);
         return false;
       }
@@ -50,7 +57,7 @@ export const syncData = async () => {
           return localUser.prepareUpdate(user => {
             user.name = customer.name!;
             user.email = customer.email;
-            user.role = customer.role!;
+            user.role = customer.role! as Role;
           });
         }
 
@@ -58,7 +65,7 @@ export const syncData = async () => {
           user._raw.id = customer.id;
           user.name = customer.name!;
           user.email = customer.email;
-          user.role = customer.role!;
+          user.role = customer.role! as Role;
         });
       });
 

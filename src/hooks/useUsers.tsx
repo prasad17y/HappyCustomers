@@ -2,12 +2,10 @@ import {useState, useEffect} from 'react';
 import {Q, type Query} from '@nozbe/watermelondb';
 import {database} from '../db';
 import UserModel from '../db/models/UserModel';
-import {UserType} from '../types';
-
-type RoleFilter = 'Admin' | 'Manager';
+import {UserType, Role} from '../types/types';
 
 // queries the database, and subscribes to changes
-export const useUsers = (roleFilter?: RoleFilter) => {
+export const useUsers = (roleFilter?: Role) => {
   const [users, setUsers] = useState<UserType[]>([]);
 
   useEffect(() => {
