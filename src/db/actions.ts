@@ -77,3 +77,33 @@ export const syncData = async () => {
     throw error;
   }
 };
+
+interface AddUserParams {
+  firstName: string;
+  lastName: string;
+  email: string | null;
+  role: Role;
+}
+
+export const addUser = async ({
+  firstName,
+  lastName,
+  email,
+  role,
+}: AddUserParams) => {
+  try {
+    await database.write(async () => {
+      const usersCollection = database.collections.get<UserModel>('users');
+      await usersCollection.create(user => {
+        // random Id is generated automatically
+        user.name = `${firstName} ${lastName}`;
+        user.email = email;
+        user.role = role;
+      });
+    });
+    console.log('User added successfully!');
+  } catch (error) {
+    console.error('Failed to add user:', error);
+    throw error;
+  }
+};

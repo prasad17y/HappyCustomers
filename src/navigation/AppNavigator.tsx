@@ -10,10 +10,11 @@ const RootStack = createNativeStackNavigator<RootStackParamList>();
 const AppNavigator = () => {
   return (
     <RootStack.Navigator>
-      <RootStack.Group>
+      <RootStack.Group screenOptions={{headerShown: false}}>
         <RootStack.Screen name={Screens.UserList} component={UserListScreen} />
       </RootStack.Group>
-      <RootStack.Group screenOptions={{presentation: 'modal'}}>
+      <RootStack.Group
+        screenOptions={{presentation: 'modal', headerShown: false}}>
         <RootStack.Screen name={Screens.AddUser} component={AddUserScreen} />
       </RootStack.Group>
     </RootStack.Navigator>

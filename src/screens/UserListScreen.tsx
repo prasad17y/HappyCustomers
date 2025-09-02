@@ -17,6 +17,10 @@ import SearchBar from '../components/SearchBar';
 import ToggleButton from '../components/ToggleButton';
 import {Role} from '../types/types';
 import {DirectEventHandler} from 'react-native/Libraries/Types/CodegenTypes';
+import FloatingActionButton from '../components/FloatingActionButton';
+import {useNavigation} from '@react-navigation/native';
+import {RootStackNavigationProp} from '../navigation/types';
+import {Screens} from '../navigation/routes';
 
 const TABS = ['All', 'Admin', 'Manager'];
 
@@ -28,6 +32,7 @@ const UserListScreen = () => {
   const [searchText, setSearchText] = useState(''); // Live search input
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const pagerViewRef = useRef<PagerView>(null);
+  const navigation = useNavigation<RootStackNavigationProp>();
 
   // animation values
   const position = useRef(new Animated.Value(0)).current;
@@ -97,6 +102,10 @@ const UserListScreen = () => {
     }
   }, [isRefreshing]);
 
+  const handleAddUserPress = () => {
+    navigation.navigate(Screens.AddUser);
+  };
+
   return isLoading ? (
     <View style={styles.centered}>
       <ActivityIndicator size="large" />
@@ -150,6 +159,7 @@ const UserListScreen = () => {
           />
         </View>
       </PagerView>
+      <FloatingActionButton onPress={handleAddUserPress} label="+" />
     </View>
   );
 };
