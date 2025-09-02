@@ -21,7 +21,7 @@ export const syncData = async () => {
       query: LIST_ZELLER_CUSTOMERS,
     });
 
-    const customersFromAPI: ApiCustomer[] = mockData;
+    const customersFromAPI: ApiCustomer[] = data.listZellerCustomers.items;
 
     // Filter out any invalid records from the API
     const validCustomers = customersFromAPI.filter(customer => {

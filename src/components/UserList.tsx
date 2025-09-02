@@ -13,6 +13,7 @@ interface UserListProps {
   users: UserType[];
   refreshing: boolean;
   onRefresh: () => void;
+  emptyMessage?: string;
 }
 
 interface Section {
@@ -23,7 +24,12 @@ interface Section {
 const ITEM_HEIGHT = 64;
 const SECTION_HEADER_HEIGHT = 34;
 
-const UserList: React.FC<UserListProps> = ({users, refreshing, onRefresh}) => {
+const UserList: React.FC<UserListProps> = ({
+  users,
+  refreshing,
+  onRefresh,
+  emptyMessage = 'No results found',
+}) => {
   const groupedUsers = useMemo(() => {
     return users.reduce<Section[]>((acc, user) => {
       const initial = user.name.charAt(0).toUpperCase();
@@ -92,7 +98,7 @@ const UserList: React.FC<UserListProps> = ({users, refreshing, onRefresh}) => {
     [],
   );
 
-  return (
+  return groupedUsers?.length > 0 ? (
     <SectionList
       sections={groupedUsers}
       keyExtractor={item => item.id}
@@ -108,6 +114,10 @@ const UserList: React.FC<UserListProps> = ({users, refreshing, onRefresh}) => {
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }
     />
+  ) : (
+    <View style={styles.emptyMessageContainer}>
+      <Text style={styles.emptyMessage}>{emptyMessage}</Text>
+    </View>
   );
 };
 
@@ -124,6 +134,15 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: 'bold',
     color: '#3c4040',
+  },
+  emptyMessageContainer: {
+    flex: 1,
+    alignSelf: 'center',
+    justifyContent: 'center',
+  },
+  emptyMessage: {
+    fontSize: 16,
+    color: 'black',
   },
 });
 
