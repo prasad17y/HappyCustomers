@@ -1,68 +1,79 @@
-import React, {useRef} from 'react';
+import React, {useMemo, useState} from 'react';
 import {
   View,
   Text,
   TouchableOpacity,
   StyleSheet,
   Animated,
-  Dimensions,
+  LayoutChangeEvent,
+  ViewStyle,
+  StyleProp,
 } from 'react-native';
-
-const {width} = Dimensions.get('window');
 
 interface FilterTabsProps {
   tabs: string[];
   selectedIndex: number;
   onTabPress: (index: number) => void;
   scrollPosition: Animated.Value | Animated.AnimatedAddition<string | number>;
+  style?: StyleProp<ViewStyle>;
 }
 
-const CONTAINER_WRAPPER_MARGIN_HORIZONTAL = 16;
-const CONTAINER_WRAPPER_PADDING = 4;
+const CONTAINER_PADDING = 4;
 
 const FilterTabs: React.FC<FilterTabsProps> = ({
   tabs,
   selectedIndex,
   onTabPress,
   scrollPosition,
+  style,
 }) => {
-  const TAB_WIDTH =
-    (width -
-      CONTAINER_WRAPPER_MARGIN_HORIZONTAL * 2 -
-      CONTAINER_WRAPPER_PADDING * 2) /
-    tabs.length;
+  const [containerWidth, setContainerWidth] = useState(0);
 
-  const translateX = useRef(
-    scrollPosition.interpolate({
+  const {tabWidth, translateX} = useMemo(() => {
+    const tabWidthVar =
+      containerWidth > 0
+        ? (containerWidth - CONTAINER_PADDING * 2) / tabs.length
+        : 0;
+
+    const translateXVar = scrollPosition.interpolate({
       inputRange: tabs.map((_, i) => i),
-      outputRange: tabs.map((_, i) => TAB_WIDTH * i),
-    }),
-  ).current;
+      outputRange: tabs.map((_, i) => tabWidthVar * i),
+    });
+
+    return {tabWidth: tabWidthVar, translateX: translateXVar};
+  }, [scrollPosition, tabs, containerWidth]);
+
+  const onLayout = (event: LayoutChangeEvent) => {
+    const {width} = event.nativeEvent.layout;
+    setContainerWidth(width);
+  };
 
   return (
-    <View style={styles.containerWrapper}>
-      <View style={styles.container}>
-        <Animated.View
-          style={[
-            styles.highlight,
-            {width: TAB_WIDTH, transform: [{translateX}]},
-          ]}
-        />
-        {tabs.map((tab, index) => (
-          <TouchableOpacity
-            key={tab}
-            style={[styles.tab, {width: TAB_WIDTH}]}
-            onPress={() => onTabPress(index)}>
-            <Text
-              style={[
-                styles.tabText,
-                selectedIndex === index && styles.selectedTabText,
-              ]}>
-              {tab}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </View>
+    <View style={[styles.containerWrapper, style]} onLayout={onLayout}>
+      {containerWidth > 0 && (
+        <View style={styles.container}>
+          <Animated.View
+            style={[
+              styles.highlight,
+              {width: tabWidth, transform: [{translateX}]},
+            ]}
+          />
+          {tabs.map((tab, index) => (
+            <TouchableOpacity
+              key={tab}
+              style={[styles.tab, {width: tabWidth}]}
+              onPress={() => onTabPress(index)}>
+              <Text
+                style={[
+                  styles.tabText,
+                  selectedIndex === index && styles.selectedTabText,
+                ]}>
+                {tab}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      )}
     </View>
   );
 };
@@ -71,10 +82,8 @@ const styles = StyleSheet.create({
   containerWrapper: {
     backgroundColor: '#f0f2f5',
     borderRadius: 22,
-    marginHorizontal: 16,
-    marginVertical: 8,
     height: 44,
-    padding: 4,
+    padding: CONTAINER_PADDING,
   },
   container: {
     flexDirection: 'row',
@@ -105,4 +114,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FilterTabs;
+export default React.memo(FilterTabs);

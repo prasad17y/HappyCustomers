@@ -1,38 +1,45 @@
 import {useState, useEffect} from 'react';
-import {Q, type Query} from '@nozbe/watermelondb';
+import {Q} from '@nozbe/watermelondb';
 import {database} from '../db';
 import UserModel from '../db/models/UserModel';
 import {UserType, Role} from '../types/types';
 
 // queries the database, and subscribes to changes
-export const useUsers = (roleFilter?: Role) => {
+export const useUsers = (roleFilter?: Role, searchQuery?: string) => {
   const [users, setUsers] = useState<UserType[]>([]);
 
   useEffect(() => {
     const usersCollection = database.collections.get<UserModel>('users');
-    let query: Query<UserModel>;
+    const queryConditions: any[] = [Q.sortBy('name', Q.asc)];
 
+    // Add role filter
     if (roleFilter) {
-      query = usersCollection.query(
-        Q.sortBy('name', Q.asc),
-        Q.where('role', roleFilter),
-      );
-    } else {
-      query = usersCollection.query(Q.sortBy('name', Q.asc));
+      queryConditions.push(Q.where('role', roleFilter));
     }
 
+    // Add search filter
+    if (searchQuery && searchQuery.trim().length > 0) {
+      const sanitizedQuery = searchQuery.trim();
+      // Case-insensitive search for names that start with the query
+      queryConditions.push(
+        Q.where('name', Q.like(`${Q.sanitizeLikeString(sanitizedQuery)}%`)),
+      );
+    }
+
+    const query = usersCollection.query(...queryConditions);
+
     const subscription = query.observe().subscribe(latestUserModels => {
-      const usersList: UserType[] = latestUserModels.map(user => ({
+      const userTypes: UserType[] = latestUserModels.map(user => ({
         id: user.id,
         name: user.name,
         email: user.email,
         role: user.role,
       }));
-      setUsers(usersList);
+      setUsers(userTypes);
     });
 
     return () => subscription.unsubscribe();
-  }, [roleFilter]);
+  }, [roleFilter, searchQuery]); // Rerun if filter or search changes
 
   return users;
 };

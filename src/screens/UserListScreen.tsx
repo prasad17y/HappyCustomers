@@ -13,6 +13,8 @@ import {syncData} from '../db/actions';
 import {useUsers} from '../hooks/useUsers';
 import UserList from '../components/UserList';
 import FilterTabs from '../components/FilterTabs';
+import SearchBar from '../components/SearchBar';
+import ToggleButton from '../components/ToggleButton';
 import {Role} from '../types/types';
 import {DirectEventHandler} from 'react-native/Libraries/Types/CodegenTypes';
 
@@ -22,6 +24,9 @@ const UserListScreen = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [searchQuery, setSearchQuery] = useState(''); // Debounced search query
+  const [searchText, setSearchText] = useState(''); // Live search input
+  const [isSearchVisible, setIsSearchVisible] = useState(false);
   const pagerViewRef = useRef<PagerView>(null);
 
   // animation values
@@ -29,10 +34,20 @@ const UserListScreen = () => {
   const offset = useRef(new Animated.Value(0)).current;
   const scrollPosition = useRef(Animated.add(position, offset)).current;
 
-  // Fetch users for each tab
-  const allUsers = useUsers();
-  const adminUsers = useUsers(Role.ADMIN);
-  const managerUsers = useUsers(Role.MANAGER);
+  // Pass debounced searchQuery to the hooks
+  const allUsers = useUsers(undefined, searchQuery);
+  const adminUsers = useUsers(Role.ADMIN, searchQuery);
+  const managerUsers = useUsers(Role.MANAGER, searchQuery);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setSearchQuery(searchText);
+    }, 300);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [searchText]);
 
   // Sync data on initial component mount
   useEffect(() => {
@@ -46,6 +61,13 @@ const UserListScreen = () => {
       }
     };
     initialSync();
+  }, []);
+
+  const toggleSearch = useCallback(() => {
+    setIsSearchVisible(prev => {
+      setSearchText('');
+      return !prev;
+    });
   }, []);
 
   const handleTabPress = (index: number) => {
@@ -81,12 +103,25 @@ const UserListScreen = () => {
     </View>
   ) : (
     <View style={styles.container}>
-      <FilterTabs
-        tabs={TABS}
-        selectedIndex={selectedIndex}
-        onTabPress={handleTabPress}
-        scrollPosition={scrollPosition}
-      />
+      <View style={styles.headerContainer}>
+        <View style={styles.filterBar}>
+          <FilterTabs
+            tabs={TABS}
+            selectedIndex={selectedIndex}
+            onTabPress={handleTabPress}
+            scrollPosition={scrollPosition}
+            style={styles.filterTabs}
+          />
+          <ToggleButton
+            onPress={toggleSearch}
+            isActive={isSearchVisible}
+            iconUri="https://img.icons8.com/ios-glyphs/30/0b5ac2/search--v1.png"
+          />
+        </View>
+        {isSearchVisible && (
+          <SearchBar value={searchText} onChangeText={setSearchText} />
+        )}
+      </View>
       <PagerView
         ref={pagerViewRef}
         style={styles.pagerView}
@@ -123,6 +158,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+  },
+  headerContainer: {
+    paddingHorizontal: 16,
+  },
+  filterBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderRadius: 22,
+    marginVertical: 8,
+    height: 44,
+  },
+  filterTabs: {
+    flex: 1,
   },
   centered: {
     flex: 1,
