@@ -4,7 +4,6 @@ import client from '../apollo/client';
 import {LIST_ZELLER_CUSTOMERS} from '../apollo/queries';
 import UserModel from './models/UserModel';
 import {Role} from '../types/types';
-import {mockData} from '../mockData/UsersList';
 
 // representation of the raw JSON data we receive from the GraphQL API
 interface ApiCustomer {

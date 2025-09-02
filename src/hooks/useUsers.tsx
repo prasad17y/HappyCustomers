@@ -5,8 +5,12 @@ import UserModel from '../db/models/UserModel';
 import {UserType, Role} from '../types/types';
 
 // queries the database, and subscribes to changes
-export const useUsers = (roleFilter?: Role, searchQuery?: string) => {
-  const [users, setUsers] = useState<UserType[]>([]);
+// returns `undefined` while the initial data is being fetched from the local DB.
+export const useUsers = (
+  roleFilter?: Role,
+  searchQuery?: string,
+): UserType[] | undefined => {
+  const [users, setUsers] = useState<UserType[] | undefined>(undefined);
 
   useEffect(() => {
     const usersCollection = database.collections.get<UserModel>('users');

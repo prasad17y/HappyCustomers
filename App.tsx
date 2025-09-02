@@ -1,22 +1,26 @@
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import AppNavigator from './src/navigation/AppNavigator';
-import {enableScreens} from 'react-native-screens';
 import {ApolloProvider} from '@apollo/client';
+import {NavigationContainer} from '@react-navigation/native';
+import {Provider} from 'react-redux';
+import {PersistGate} from 'redux-persist/integration/react'; // Import PersistGate
+import AppNavigator from './src/navigation/AppNavigator';
 import client from './src/apollo/client';
-
-enableScreens();
+import {store, persistor} from './src/redux/store'; // Import persistor
 
 const App = () => {
   return (
-    <SafeAreaProvider>
-      <ApolloProvider client={client}>
-        <NavigationContainer>
-          <AppNavigator />
-        </NavigationContainer>
-      </ApolloProvider>
-    </SafeAreaProvider>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <SafeAreaProvider>
+          <ApolloProvider client={client}>
+            <NavigationContainer>
+              <AppNavigator />
+            </NavigationContainer>
+          </ApolloProvider>
+        </SafeAreaProvider>
+      </PersistGate>
+    </Provider>
   );
 };
 
