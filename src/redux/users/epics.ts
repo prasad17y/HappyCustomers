@@ -14,7 +14,7 @@ import {RootState} from '../root';
 import {database} from '../../db';
 import UserModel from '../../db/models/UserModel';
 
-const STALE_PERIOD_MS = 10000; // 10 seconds for testing
+const STALE_PERIOD_MS = 60 * 1000; // 1 minute for testing
 
 export const usersEpic: Epic<UsersActionTypes, UsersActionTypes, RootState> = (
   action$,

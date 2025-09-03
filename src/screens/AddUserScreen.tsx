@@ -5,12 +5,12 @@ import {
   TextInput,
   StyleSheet,
   TouchableOpacity,
-  Alert,
   ScrollView,
   KeyboardAvoidingView,
   Platform,
   SafeAreaView,
   Animated,
+  Keyboard,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {Role} from '../types/types';
@@ -173,6 +173,7 @@ const AddUserScreen = () => {
                   tabs={['Admin', 'Manager']}
                   selectedIndex={values.role === Role.ADMIN ? 0 : 1}
                   onTabPress={index => {
+                    Keyboard.dismiss();
                     const role = index === 0 ? Role.ADMIN : Role.MANAGER;
                     setFieldValue('role', role);
 
