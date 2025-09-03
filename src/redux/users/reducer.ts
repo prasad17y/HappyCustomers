@@ -4,6 +4,7 @@ import {
   SYNC_USERS_REQUEST,
   SYNC_USERS_SUCCESS,
   SYNC_USERS_FAILURE,
+  CLEAR_SYNC_ERROR,
 } from './types';
 
 const initialState: UsersState = {
@@ -27,6 +28,7 @@ export const usersReducer = (
       return {
         ...state,
         isSyncing: false,
+        syncError: null,
         lastSyncTimestamp: action.payload.didFetch
           ? new Date().toISOString()
           : state.lastSyncTimestamp,
@@ -36,6 +38,11 @@ export const usersReducer = (
         ...state,
         isSyncing: false,
         syncError: action.payload,
+      };
+    case CLEAR_SYNC_ERROR:
+      return {
+        ...state,
+        syncError: null,
       };
     default:
       return state;

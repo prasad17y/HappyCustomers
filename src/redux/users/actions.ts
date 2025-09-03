@@ -2,6 +2,7 @@ import {
   SYNC_USERS_REQUEST,
   SYNC_USERS_SUCCESS,
   SYNC_USERS_FAILURE,
+  CLEAR_SYNC_ERROR,
   UsersActionTypes,
 } from './types';
 
@@ -22,4 +23,8 @@ export const syncUsersSuccess = (payload: {
 export const syncUsersFailure = (error: string): UsersActionTypes => ({
   type: SYNC_USERS_FAILURE,
   payload: error,
+});
+
+export const clearSyncError = (): UsersActionTypes => ({
+  type: CLEAR_SYNC_ERROR,
 });

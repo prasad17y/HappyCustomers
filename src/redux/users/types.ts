@@ -7,6 +7,7 @@ export interface UsersState {
 export const SYNC_USERS_REQUEST = 'SYNC_USERS_REQUEST';
 export const SYNC_USERS_SUCCESS = 'SYNC_USERS_SUCCESS';
 export const SYNC_USERS_FAILURE = 'SYNC_USERS_FAILURE';
+export const CLEAR_SYNC_ERROR = 'CLEAR_SYNC_ERROR';
 
 interface SyncUsersRequestAction {
   type: typeof SYNC_USERS_REQUEST;
@@ -23,7 +24,12 @@ interface SyncUsersFailureAction {
   payload: string;
 }
 
+interface ClearSyncErrorAction {
+  type: typeof CLEAR_SYNC_ERROR;
+}
+
 export type UsersActionTypes =
   | SyncUsersRequestAction
   | SyncUsersSuccessAction
-  | SyncUsersFailureAction;
+  | SyncUsersFailureAction
+  | ClearSyncErrorAction;

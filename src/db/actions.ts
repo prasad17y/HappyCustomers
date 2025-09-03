@@ -20,6 +20,9 @@ export const syncData = async () => {
       query: LIST_ZELLER_CUSTOMERS,
     });
 
+    // to simulate network delay
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
     const customersFromAPI: ApiCustomer[] = data.listZellerCustomers.items;
 
     // Filter out any invalid records from the API
@@ -72,7 +75,7 @@ export const syncData = async () => {
       console.log('Database synchronized successfully (Upsert complete)!');
     });
   } catch (error) {
-    console.error('Failed to sync data:', error);
+    console.log('Failed to sync data:', error);
     throw error;
   }
 };
@@ -102,7 +105,7 @@ export const addUser = async ({
     });
     console.log('User added successfully!');
   } catch (error) {
-    console.error('Failed to add user:', error);
+    console.log('Failed to add user:', error);
     throw error;
   }
 };

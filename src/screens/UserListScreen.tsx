@@ -5,14 +5,13 @@ import {
   ActivityIndicator,
   Animated,
   Text,
-  Alert,
 } from 'react-native';
 import PagerView, {
   PagerViewOnPageScrollEventData,
 } from 'react-native-pager-view';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../redux/root';
-import {syncUsersRequest} from '../redux/users/actions';
+import {clearSyncError, syncUsersRequest} from '../redux/users/actions';
 import {useUsers} from '../hooks/useUsers';
 import UserList from '../components/UserList';
 import FilterTabs from '../components/FilterTabs';
@@ -24,6 +23,7 @@ import FloatingActionButton from '../components/FloatingActionButton';
 import {useNavigation} from '@react-navigation/native';
 import {RootStackNavigationProp} from '../navigation/types';
 import {Screens} from '../navigation/routes';
+import {ToastService} from '../services/ToastService';
 
 const TABS = ['All', 'Admin', 'Manager'];
 
@@ -76,9 +76,10 @@ const UserListScreen = () => {
   useEffect(() => {
     const dbHasData = !!lastSyncTimestamp;
     if (syncError && dbHasData) {
-      Alert.alert(syncError);
+      ToastService.showError(syncError);
+      dispatch(clearSyncError());
     }
-  }, [syncError, lastSyncTimestamp]);
+  }, [syncError, lastSyncTimestamp, dispatch]);
 
   // Stop the refresh indicator once the sync is complete
   useEffect(() => {

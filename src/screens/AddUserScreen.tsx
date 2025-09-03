@@ -18,6 +18,7 @@ import {addUser} from '../db/actions';
 import {Formik} from 'formik';
 import * as yup from 'yup';
 import FilterTabs from '../components/FilterTabs';
+import {ToastService} from '../services/ToastService';
 
 const validationSchema = yup.object().shape({
   firstName: yup
@@ -60,9 +61,10 @@ const AddUserScreen = () => {
         email: values.email.trim() || null,
         role: values.role,
       });
+      ToastService.showSuccess('User created successfully!');
       navigation.goBack();
     } catch (error) {
-      Alert.alert('Error', 'Could not create user.');
+      ToastService.showError('Could not create user.');
     }
   };
 
