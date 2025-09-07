@@ -14,7 +14,10 @@ const AppNavigator = () => {
         <RootStack.Screen name={Screens.UserList} component={UserListScreen} />
       </RootStack.Group>
       <RootStack.Group
-        screenOptions={{presentation: 'modal', headerShown: false}}>
+        screenOptions={{
+          presentation: 'fullScreenModal',
+          headerShown: false,
+        }}>
         <RootStack.Screen name={Screens.AddUser} component={AddUserScreen} />
       </RootStack.Group>
     </RootStack.Navigator>
