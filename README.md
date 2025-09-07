@@ -34,11 +34,28 @@
    git clone <your-repository-url>  
    cd HappyCustomers  
 
-2. Install dependencies:  
-   yarn install  
+2. Install dependencies:
+   yarn install
 
-3. Run on android:  
+3. Run on Android:
    yarn android
+
+4. For iOS, install pods:
+   cd ios && pod install
+
+   If you see an error like:
+   "CDN: trunk URL couldn't be downloaded: https://cdn.cocoapods.org/all_pods_versions_0_9_9.txt Response: Timeout was reached"
+
+   Fix:
+   - Add this line at the top of your Podfile:
+     source 'https://github.com/CocoaPods/Specs.git'
+
+   - Then run:
+     pod install --repo-update
+
+5. Run on iOS:
+   yarn ios
+   
  
 
 ## 📄 License

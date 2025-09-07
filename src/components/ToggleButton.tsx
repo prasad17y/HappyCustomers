@@ -1,21 +1,27 @@
 import React from 'react';
-import {TouchableOpacity, View, Image, StyleSheet} from 'react-native';
+import {
+  TouchableOpacity,
+  View,
+  Image,
+  StyleSheet,
+  ImageSourcePropType,
+} from 'react-native';
 
 interface ToggleButtonProps {
   onPress: () => void;
   isActive: boolean;
-  iconUri: string;
+  source: ImageSourcePropType;
 }
 
 const ToggleButton: React.FC<ToggleButtonProps> = ({
   onPress,
   isActive,
-  iconUri,
+  source,
 }) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.button}>
       <View style={[styles.iconWrapper, isActive && styles.iconWrapperActive]}>
-        <Image source={{uri: iconUri}} style={styles.icon} />
+        <Image source={source} style={styles.icon} />
       </View>
     </TouchableOpacity>
   );

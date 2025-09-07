@@ -24,6 +24,7 @@ import {useNavigation} from '@react-navigation/native';
 import {RootStackNavigationProp} from '../navigation/types';
 import {Screens} from '../navigation/routes';
 import {ToastService} from '../services/ToastService';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 const TABS = ['All', 'Admin', 'Manager'];
 
@@ -129,73 +130,84 @@ const UserListScreen = () => {
   const dbHasData = !!lastSyncTimestamp;
   const isInitialLoading = !dbHasData && !syncError;
 
-  return isInitialLoading ? (
-    <View style={styles.centered}>
-      <ActivityIndicator size="large" />
-    </View>
-  ) : syncError && !dbHasData ? (
-    <View style={styles.centered}>
-      <Text style={styles.errorText}>
-        Failed to load users. Please try again.
-      </Text>
-    </View>
-  ) : (
-    <View style={styles.container}>
-      <View style={styles.headerContainer}>
-        <View style={styles.filterBar}>
-          <FilterTabs
-            tabs={TABS}
-            selectedIndex={selectedIndex}
-            onTabPress={handleTabPress}
-            scrollPosition={scrollPosition}
-            style={styles.filterTabs}
-          />
-          <ToggleButton
-            onPress={toggleSearch}
-            isActive={isSearchVisible}
-            iconUri="https://img.icons8.com/ios-glyphs/30/0b5ac2/search--v1.png"
+  return (
+    <SafeAreaView style={styles.safeAreaView}>
+      {isInitialLoading ? (
+        <View style={styles.centered}>
+          <ActivityIndicator size="large" />
+        </View>
+      ) : syncError && !dbHasData ? (
+        <View style={styles.centered}>
+          <Text style={styles.errorText}>
+            Failed to load users. Please try again.
+          </Text>
+        </View>
+      ) : (
+        <View style={styles.container}>
+          <View style={styles.headerContainer}>
+            <View style={styles.filterBar}>
+              <FilterTabs
+                tabs={TABS}
+                selectedIndex={selectedIndex}
+                onTabPress={handleTabPress}
+                scrollPosition={scrollPosition}
+                style={styles.filterTabs}
+              />
+              <ToggleButton
+                onPress={toggleSearch}
+                isActive={isSearchVisible}
+                source={require('../assets/search.png')}
+              />
+            </View>
+            {isSearchVisible && (
+              <SearchBar value={searchQuery} onChangeText={setSearchQuery} />
+            )}
+          </View>
+          <PagerView
+            ref={pagerViewRef}
+            style={styles.pagerView}
+            initialPage={0}
+            onPageSelected={e => setSelectedIndex(e.nativeEvent.position)}
+            onPageScroll={handlePageScroll}>
+            <View key="1">
+              <UserListPage
+                searchQuery={debouncedSearchQuery}
+                isRefreshing={isRefreshing}
+                onRefresh={onRefresh}
+              />
+            </View>
+            <View key="2">
+              <UserListPage
+                role={Role.ADMIN}
+                searchQuery={debouncedSearchQuery}
+                isRefreshing={isRefreshing}
+                onRefresh={onRefresh}
+              />
+            </View>
+            <View key="3">
+              <UserListPage
+                role={Role.MANAGER}
+                searchQuery={debouncedSearchQuery}
+                isRefreshing={isRefreshing}
+                onRefresh={onRefresh}
+              />
+            </View>
+          </PagerView>
+          <FloatingActionButton
+            onPress={handleAddUserPress}
+            label="+"
+            style={styles.floatingActionButtonStyle}
           />
         </View>
-        {isSearchVisible && (
-          <SearchBar value={searchQuery} onChangeText={setSearchQuery} />
-        )}
-      </View>
-      <PagerView
-        ref={pagerViewRef}
-        style={styles.pagerView}
-        initialPage={0}
-        onPageSelected={e => setSelectedIndex(e.nativeEvent.position)}
-        onPageScroll={handlePageScroll}>
-        <View key="1">
-          <UserListPage
-            searchQuery={debouncedSearchQuery}
-            isRefreshing={isRefreshing}
-            onRefresh={onRefresh}
-          />
-        </View>
-        <View key="2">
-          <UserListPage
-            role={Role.ADMIN}
-            searchQuery={debouncedSearchQuery}
-            isRefreshing={isRefreshing}
-            onRefresh={onRefresh}
-          />
-        </View>
-        <View key="3">
-          <UserListPage
-            role={Role.MANAGER}
-            searchQuery={debouncedSearchQuery}
-            isRefreshing={isRefreshing}
-            onRefresh={onRefresh}
-          />
-        </View>
-      </PagerView>
-      <FloatingActionButton onPress={handleAddUserPress} label="+" />
-    </View>
+      )}
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  safeAreaView: {
+    flex: 1,
+  },
   container: {
     flex: 1,
     backgroundColor: '#fff',
@@ -226,6 +238,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: 'red',
     textAlign: 'center',
+  },
+  floatingActionButtonStyle: {
+    position: 'absolute',
+    bottom: 30,
+    right: 30,
   },
 });
 

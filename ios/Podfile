@@ -39,6 +39,8 @@ target 'HappyCustomers' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
+  pod 'simdjson', path: '../node_modules/@nozbe/simdjson', modular_headers: true
+
   target 'HappyCustomersTests' do
     inherit! :complete
     # Pods for testing

@@ -1,17 +1,26 @@
 import React from 'react';
-import {TouchableOpacity, StyleSheet, Text, View} from 'react-native';
+import {
+  TouchableOpacity,
+  StyleSheet,
+  Text,
+  View,
+  ViewStyle,
+  StyleProp,
+} from 'react-native';
 
 interface FloatingActionButtonProps {
   onPress: () => void;
   label: string;
+  style?: StyleProp<ViewStyle>;
 }
 
 const FloatingActionButton: React.FC<FloatingActionButtonProps> = ({
   onPress,
   label,
+  style,
 }) => {
   return (
-    <TouchableOpacity style={styles.container} onPress={onPress}>
+    <TouchableOpacity style={style} onPress={onPress}>
       <View style={styles.button}>
         <Text style={styles.plus}>{label}</Text>
       </View>
@@ -20,11 +29,6 @@ const FloatingActionButton: React.FC<FloatingActionButtonProps> = ({
 };
 
 const styles = StyleSheet.create({
-  container: {
-    position: 'absolute',
-    bottom: 30,
-    right: 30,
-  },
   button: {
     width: 60,
     height: 60,
