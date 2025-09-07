@@ -20,7 +20,7 @@ import * as yup from 'yup';
 import FilterTabs from '../components/FilterTabs';
 import {ToastService} from '../services/ToastService';
 
-const validationSchema = yup.object().shape({
+export const validationSchema = yup.object().shape({
   firstName: yup
     .string()
     .trim()
@@ -31,7 +31,20 @@ const validationSchema = yup.object().shape({
     .trim()
     .matches(/^[a-zA-Z]*$/, 'Name can only contain letters.')
     .required('Last Name is required.'),
-  email: yup.string().email('Please enter a valid email address.'),
+  email: yup
+    .string()
+    .trim()
+    .test(
+      'is-valid-or-empty',
+      'Please enter a valid email address.',
+      (value: any) => {
+        // .email() allows "john@doe", hence we need this elaborate test
+        if (value === '') {
+          return true;
+        }
+        return value ? /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) : true;
+      },
+    ),
   fullName: yup
     .string()
     .test(
