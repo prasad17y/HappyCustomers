@@ -196,6 +196,7 @@ const AddUserScreen = () => {
                     }).start();
                   }}
                   scrollPosition={scrollPosition}
+                  testID="add-user-screen"
                 />
               </View>
               <View style={styles.footer}>

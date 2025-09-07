@@ -16,6 +16,7 @@ interface FilterTabsProps {
   onTabPress: (index: number) => void;
   scrollPosition: Animated.Value | Animated.AnimatedAddition<string | number>;
   style?: StyleProp<ViewStyle>;
+  testID?: string;
 }
 
 const CONTAINER_PADDING = 4;
@@ -26,6 +27,7 @@ const FilterTabs: React.FC<FilterTabsProps> = ({
   onTabPress,
   scrollPosition,
   style,
+  testID = '',
 }) => {
   const [containerWidth, setContainerWidth] = useState(0);
 
@@ -49,7 +51,10 @@ const FilterTabs: React.FC<FilterTabsProps> = ({
   };
 
   return (
-    <View style={[styles.containerWrapper, style]} onLayout={onLayout}>
+    <View
+      style={[styles.containerWrapper, style]}
+      testID={testID + '-filter-tabs-container'}
+      onLayout={onLayout}>
       {containerWidth > 0 && (
         <View style={styles.container}>
           <Animated.View
@@ -61,6 +66,7 @@ const FilterTabs: React.FC<FilterTabsProps> = ({
           {tabs.map((tab, index) => (
             <TouchableOpacity
               key={tab}
+              testID={testID + '-filter-tab-' + index}
               style={[styles.tab, {width: tabWidth}]}
               onPress={() => onTabPress(index)}>
               <Text

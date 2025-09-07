@@ -1,0 +1,937 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddUserScreen Component renders correctly 1`] = `
+<RCTSafeAreaView
+  style={
+    {
+      "backgroundColor": "#fff",
+      "flex": 1,
+    }
+  }
+>
+  <View
+    onLayout={[Function]}
+    style={
+      [
+        {
+          "flex": 1,
+        },
+        {
+          "paddingBottom": 0,
+        },
+      ]
+    }
+  >
+    <RCTScrollView
+      contentContainerStyle={
+        {
+          "flexGrow": 1,
+          "paddingHorizontal": 24,
+        }
+      }
+      keyboardShouldPersistTaps="handled"
+    >
+      <View>
+        <View
+          style={
+            {
+              "alignItems": "flex-start",
+              "paddingTop": 16,
+            }
+          }
+        >
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "opacity": 1,
+                "padding": 8,
+              }
+            }
+          >
+            <Text
+              style={
+                {
+                  "color": "#0b5ac2",
+                  "fontSize": 24,
+                }
+              }
+            >
+              ✕
+            </Text>
+          </View>
+        </View>
+        <Text
+          style={
+            {
+              "color": "#191a1a",
+              "fontSize": 32,
+              "fontWeight": "bold",
+              "marginBottom": 32,
+              "marginTop": 16,
+            }
+          }
+        >
+          New User
+        </Text>
+        <View
+          style={
+            {
+              "flex": 1,
+            }
+          }
+        >
+          <View
+            style={
+              {
+                "marginBottom": 8,
+              }
+            }
+          >
+            <View
+              style={
+                {
+                  "borderBottomColor": "#e0e0e0",
+                  "borderBottomWidth": 1,
+                }
+              }
+            >
+              <TextInput
+                onBlur={[Function]}
+                onChangeText={[Function]}
+                placeholder="First Name"
+                placeholderTextColor="#a0a0a0"
+                style={
+                  {
+                    "color": "#191a1a",
+                    "fontSize": 16,
+                    "paddingVertical": 12,
+                  }
+                }
+                value=""
+              />
+            </View>
+            <View
+              style={
+                {
+                  "height": 35,
+                  "justifyContent": "center",
+                }
+              }
+            />
+          </View>
+          <View
+            style={
+              {
+                "marginBottom": 8,
+              }
+            }
+          >
+            <View
+              style={
+                {
+                  "borderBottomColor": "#e0e0e0",
+                  "borderBottomWidth": 1,
+                }
+              }
+            >
+              <TextInput
+                onBlur={[Function]}
+                onChangeText={[Function]}
+                placeholder="Last Name"
+                placeholderTextColor="#a0a0a0"
+                style={
+                  {
+                    "color": "#191a1a",
+                    "fontSize": 16,
+                    "paddingVertical": 12,
+                  }
+                }
+                value=""
+              />
+            </View>
+            <View
+              style={
+                {
+                  "height": 35,
+                  "justifyContent": "center",
+                }
+              }
+            />
+          </View>
+          <View
+            style={
+              {
+                "marginBottom": 8,
+              }
+            }
+          >
+            <View
+              style={
+                {
+                  "borderBottomColor": "#e0e0e0",
+                  "borderBottomWidth": 1,
+                }
+              }
+            >
+              <TextInput
+                autoCapitalize="none"
+                keyboardType="email-address"
+                onBlur={[Function]}
+                onChangeText={[Function]}
+                placeholder="Email"
+                placeholderTextColor="#a0a0a0"
+                style={
+                  {
+                    "color": "#191a1a",
+                    "fontSize": 16,
+                    "paddingVertical": 12,
+                  }
+                }
+                value=""
+              />
+            </View>
+            <View
+              style={
+                {
+                  "height": 35,
+                  "justifyContent": "center",
+                }
+              }
+            />
+          </View>
+          <Text
+            style={
+              {
+                "color": "#666",
+                "fontSize": 16,
+                "marginBottom": 12,
+              }
+            }
+          >
+            User Role
+          </Text>
+          <View
+            onLayout={[Function]}
+            style={
+              [
+                {
+                  "backgroundColor": "#f0f2f5",
+                  "borderRadius": 22,
+                  "height": 44,
+                  "padding": 4,
+                },
+                undefined,
+              ]
+            }
+            testID="add-user-screen-filter-tabs-container"
+          >
+            <View
+              style={
+                {
+                  "flex": 1,
+                  "flexDirection": "row",
+                  "position": "relative",
+                }
+              }
+            >
+              <View
+                collapsable={false}
+                style={
+                  {
+                    "backgroundColor": "#e3effa",
+                    "borderColor": "#0b5ac1",
+                    "borderRadius": 18,
+                    "borderWidth": 1,
+                    "height": "100%",
+                    "position": "absolute",
+                    "transform": [
+                      {
+                        "translateX": 96,
+                      },
+                    ],
+                    "width": 96,
+                  }
+                }
+              />
+              <View
+                accessibilityState={
+                  {
+                    "busy": undefined,
+                    "checked": undefined,
+                    "disabled": undefined,
+                    "expanded": undefined,
+                    "selected": undefined,
+                  }
+                }
+                accessibilityValue={
+                  {
+                    "max": undefined,
+                    "min": undefined,
+                    "now": undefined,
+                    "text": undefined,
+                  }
+                }
+                accessible={true}
+                collapsable={false}
+                focusable={true}
+                onClick={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  {
+                    "alignItems": "center",
+                    "height": "100%",
+                    "justifyContent": "center",
+                    "opacity": 1,
+                    "width": 96,
+                  }
+                }
+                testID="add-user-screen-filter-tab-0"
+              >
+                <Text
+                  style={
+                    [
+                      {
+                        "color": "#666",
+                        "fontSize": 16,
+                        "fontWeight": "500",
+                      },
+                      false,
+                    ]
+                  }
+                >
+                  Admin
+                </Text>
+              </View>
+              <View
+                accessibilityState={
+                  {
+                    "busy": undefined,
+                    "checked": undefined,
+                    "disabled": undefined,
+                    "expanded": undefined,
+                    "selected": undefined,
+                  }
+                }
+                accessibilityValue={
+                  {
+                    "max": undefined,
+                    "min": undefined,
+                    "now": undefined,
+                    "text": undefined,
+                  }
+                }
+                accessible={true}
+                collapsable={false}
+                focusable={true}
+                onClick={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  {
+                    "alignItems": "center",
+                    "height": "100%",
+                    "justifyContent": "center",
+                    "opacity": 1,
+                    "width": 96,
+                  }
+                }
+                testID="add-user-screen-filter-tab-1"
+              >
+                <Text
+                  style={
+                    [
+                      {
+                        "color": "#666",
+                        "fontSize": 16,
+                        "fontWeight": "500",
+                      },
+                      {
+                        "color": "#0b5ac2",
+                        "fontWeight": "bold",
+                      },
+                    ]
+                  }
+                >
+                  Manager
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View
+          style={
+            {
+              "paddingVertical": 20,
+            }
+          }
+        >
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "alignItems": "center",
+                "backgroundColor": "#0b5ac2",
+                "borderRadius": 22,
+                "opacity": 1,
+                "padding": 16,
+              }
+            }
+          >
+            <Text
+              style={
+                {
+                  "color": "#fff",
+                  "fontSize": 18,
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Create User
+            </Text>
+          </View>
+        </View>
+      </View>
+    </RCTScrollView>
+  </View>
+</RCTSafeAreaView>
+`;
+
+exports[`AddUserScreen Component renders correctly with all validation errors visible 1`] = `
+<RCTSafeAreaView
+  style={
+    {
+      "backgroundColor": "#fff",
+      "flex": 1,
+    }
+  }
+>
+  <View
+    onLayout={[Function]}
+    style={
+      [
+        {
+          "flex": 1,
+        },
+        {
+          "paddingBottom": 0,
+        },
+      ]
+    }
+  >
+    <RCTScrollView
+      contentContainerStyle={
+        {
+          "flexGrow": 1,
+          "paddingHorizontal": 24,
+        }
+      }
+      keyboardShouldPersistTaps="handled"
+    >
+      <View>
+        <View
+          style={
+            {
+              "alignItems": "flex-start",
+              "paddingTop": 16,
+            }
+          }
+        >
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "opacity": 1,
+                "padding": 8,
+              }
+            }
+          >
+            <Text
+              style={
+                {
+                  "color": "#0b5ac2",
+                  "fontSize": 24,
+                }
+              }
+            >
+              ✕
+            </Text>
+          </View>
+        </View>
+        <Text
+          style={
+            {
+              "color": "#191a1a",
+              "fontSize": 32,
+              "fontWeight": "bold",
+              "marginBottom": 32,
+              "marginTop": 16,
+            }
+          }
+        >
+          New User
+        </Text>
+        <View
+          style={
+            {
+              "flex": 1,
+            }
+          }
+        >
+          <View
+            style={
+              {
+                "marginBottom": 8,
+              }
+            }
+          >
+            <View
+              style={
+                {
+                  "borderBottomColor": "#e0e0e0",
+                  "borderBottomWidth": 1,
+                }
+              }
+            >
+              <TextInput
+                onBlur={[Function]}
+                onChangeText={[Function]}
+                placeholder="First Name"
+                placeholderTextColor="#a0a0a0"
+                style={
+                  {
+                    "color": "#191a1a",
+                    "fontSize": 16,
+                    "paddingVertical": 12,
+                  }
+                }
+                value=""
+              />
+            </View>
+            <View
+              style={
+                {
+                  "height": 35,
+                  "justifyContent": "center",
+                }
+              }
+            >
+              <Text
+                style={
+                  {
+                    "color": "red",
+                  }
+                }
+              >
+                First Name is required.
+              </Text>
+            </View>
+          </View>
+          <View
+            style={
+              {
+                "marginBottom": 8,
+              }
+            }
+          >
+            <View
+              style={
+                {
+                  "borderBottomColor": "#e0e0e0",
+                  "borderBottomWidth": 1,
+                }
+              }
+            >
+              <TextInput
+                onBlur={[Function]}
+                onChangeText={[Function]}
+                placeholder="Last Name"
+                placeholderTextColor="#a0a0a0"
+                style={
+                  {
+                    "color": "#191a1a",
+                    "fontSize": 16,
+                    "paddingVertical": 12,
+                  }
+                }
+                value=""
+              />
+            </View>
+            <View
+              style={
+                {
+                  "height": 35,
+                  "justifyContent": "center",
+                }
+              }
+            >
+              <Text
+                style={
+                  {
+                    "color": "red",
+                  }
+                }
+              >
+                Last Name is required.
+              </Text>
+            </View>
+          </View>
+          <View
+            style={
+              {
+                "marginBottom": 8,
+              }
+            }
+          >
+            <View
+              style={
+                {
+                  "borderBottomColor": "#e0e0e0",
+                  "borderBottomWidth": 1,
+                }
+              }
+            >
+              <TextInput
+                autoCapitalize="none"
+                keyboardType="email-address"
+                onBlur={[Function]}
+                onChangeText={[Function]}
+                placeholder="Email"
+                placeholderTextColor="#a0a0a0"
+                style={
+                  {
+                    "color": "#191a1a",
+                    "fontSize": 16,
+                    "paddingVertical": 12,
+                  }
+                }
+                value=""
+              />
+            </View>
+            <View
+              style={
+                {
+                  "height": 35,
+                  "justifyContent": "center",
+                }
+              }
+            />
+          </View>
+          <Text
+            style={
+              {
+                "color": "#666",
+                "fontSize": 16,
+                "marginBottom": 12,
+              }
+            }
+          >
+            User Role
+          </Text>
+          <View
+            onLayout={[Function]}
+            style={
+              [
+                {
+                  "backgroundColor": "#f0f2f5",
+                  "borderRadius": 22,
+                  "height": 44,
+                  "padding": 4,
+                },
+                undefined,
+              ]
+            }
+            testID="add-user-screen-filter-tabs-container"
+          >
+            <View
+              style={
+                {
+                  "flex": 1,
+                  "flexDirection": "row",
+                  "position": "relative",
+                }
+              }
+            >
+              <View
+                collapsable={false}
+                style={
+                  {
+                    "backgroundColor": "#e3effa",
+                    "borderColor": "#0b5ac1",
+                    "borderRadius": 18,
+                    "borderWidth": 1,
+                    "height": "100%",
+                    "position": "absolute",
+                    "transform": [
+                      {
+                        "translateX": 96,
+                      },
+                    ],
+                    "width": 96,
+                  }
+                }
+              />
+              <View
+                accessibilityState={
+                  {
+                    "busy": undefined,
+                    "checked": undefined,
+                    "disabled": undefined,
+                    "expanded": undefined,
+                    "selected": undefined,
+                  }
+                }
+                accessibilityValue={
+                  {
+                    "max": undefined,
+                    "min": undefined,
+                    "now": undefined,
+                    "text": undefined,
+                  }
+                }
+                accessible={true}
+                collapsable={false}
+                focusable={true}
+                onClick={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  {
+                    "alignItems": "center",
+                    "height": "100%",
+                    "justifyContent": "center",
+                    "opacity": 1,
+                    "width": 96,
+                  }
+                }
+                testID="add-user-screen-filter-tab-0"
+              >
+                <Text
+                  style={
+                    [
+                      {
+                        "color": "#666",
+                        "fontSize": 16,
+                        "fontWeight": "500",
+                      },
+                      false,
+                    ]
+                  }
+                >
+                  Admin
+                </Text>
+              </View>
+              <View
+                accessibilityState={
+                  {
+                    "busy": undefined,
+                    "checked": undefined,
+                    "disabled": undefined,
+                    "expanded": undefined,
+                    "selected": undefined,
+                  }
+                }
+                accessibilityValue={
+                  {
+                    "max": undefined,
+                    "min": undefined,
+                    "now": undefined,
+                    "text": undefined,
+                  }
+                }
+                accessible={true}
+                collapsable={false}
+                focusable={true}
+                onClick={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  {
+                    "alignItems": "center",
+                    "height": "100%",
+                    "justifyContent": "center",
+                    "opacity": 1,
+                    "width": 96,
+                  }
+                }
+                testID="add-user-screen-filter-tab-1"
+              >
+                <Text
+                  style={
+                    [
+                      {
+                        "color": "#666",
+                        "fontSize": 16,
+                        "fontWeight": "500",
+                      },
+                      {
+                        "color": "#0b5ac2",
+                        "fontWeight": "bold",
+                      },
+                    ]
+                  }
+                >
+                  Manager
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View
+          style={
+            {
+              "paddingVertical": 20,
+            }
+          }
+        >
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "alignItems": "center",
+                "backgroundColor": "#0b5ac2",
+                "borderRadius": 22,
+                "opacity": 1,
+                "padding": 16,
+              }
+            }
+          >
+            <Text
+              style={
+                {
+                  "color": "#fff",
+                  "fontSize": 18,
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Create User
+            </Text>
+          </View>
+        </View>
+      </View>
+    </RCTScrollView>
+  </View>
+</RCTSafeAreaView>
+`;
