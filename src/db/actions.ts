@@ -60,6 +60,7 @@ export const syncData = async () => {
             user.name = customer.name!;
             user.email = customer.email;
             user.role = customer.role! as Role;
+            user.sortableName = customer.name!.toLowerCase();
           });
         }
 
@@ -68,6 +69,7 @@ export const syncData = async () => {
           user.name = customer.name!;
           user.email = customer.email;
           user.role = customer.role! as Role;
+          user.sortableName = customer.name!.toLowerCase();
         });
       });
 
@@ -96,16 +98,67 @@ export const addUser = async ({
   try {
     await database.write(async () => {
       const usersCollection = database.collections.get<UserModel>('users');
+      const fullName = `${firstName} ${lastName}`;
       await usersCollection.create(user => {
         // random Id is generated automatically
-        user.name = `${firstName} ${lastName}`;
+        user.name = fullName;
         user.email = email;
         user.role = role;
+        user.sortableName = fullName.toLowerCase();
       });
     });
     console.log('User added successfully!');
   } catch (error) {
     console.log('Failed to add user:', error);
+    throw error;
+  }
+};
+
+export const deleteUser = async (userId: string) => {
+  try {
+    await database.write(async () => {
+      const userToDelete = await database.collections
+        .get<UserModel>('users')
+        .find(userId);
+      await userToDelete.destroyPermanently();
+    });
+    console.log(`User with ID ${userId} deleted successfully.`);
+  } catch (error) {
+    console.error(`Failed to delete user with ID ${userId}:`, error);
+    throw error;
+  }
+};
+
+interface UpdateUserParams {
+  userId: string;
+  firstName: string;
+  lastName: string;
+  email: string | null;
+  role: Role;
+}
+
+export const updateUser = async ({
+  userId,
+  firstName,
+  lastName,
+  email,
+  role,
+}: UpdateUserParams) => {
+  try {
+    await database.write(async () => {
+      const userToUpdate = await database.collections
+        .get<UserModel>('users')
+        .find(userId);
+
+      await userToUpdate.update(user => {
+        user.name = `${firstName} ${lastName}`;
+        user.email = email;
+        user.role = role;
+      });
+    });
+    console.log(`User with ID ${userId} updated successfully.`);
+  } catch (error) {
+    console.error(`Failed to update user with ID ${userId}:`, error);
     throw error;
   }
 };
