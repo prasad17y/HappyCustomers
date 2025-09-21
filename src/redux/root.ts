@@ -4,7 +4,13 @@ import {persistReducer} from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {usersReducer} from './users/reducer';
-import {usersEpic} from './users/epics';
+import {
+  addUserEpic,
+  deleteUserEpic,
+  updateUserEpic,
+  usersEpic,
+} from './users/epics';
+import {notificationsReducer} from './notifications/reducer';
 
 const usersPersistConfig = {
   key: 'users',
@@ -14,8 +20,14 @@ const usersPersistConfig = {
 
 export const rootReducer = combineReducers({
   users: persistReducer(usersPersistConfig, usersReducer),
+  notifications: notificationsReducer,
 });
 
-export const rootEpic = combineEpics(usersEpic);
+export const rootEpic = combineEpics(
+  usersEpic,
+  deleteUserEpic,
+  addUserEpic,
+  updateUserEpic,
+);
 
 export type RootState = ReturnType<typeof rootReducer>;

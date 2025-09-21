@@ -4,6 +4,7 @@ import UserListScreen from '../screens/UserListScreen';
 import AddUserScreen from '../screens/AddUserScreen';
 import {RootStackParamList} from './types';
 import {Screens} from './routes';
+import EditUserScreen from '../screens/EditUserScreen';
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
@@ -19,6 +20,7 @@ const AppNavigator = () => {
           headerShown: false,
         }}>
         <RootStack.Screen name={Screens.AddUser} component={AddUserScreen} />
+        <RootStack.Screen name={Screens.EditUser} component={EditUserScreen} />
       </RootStack.Group>
     </RootStack.Navigator>
   );

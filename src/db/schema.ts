@@ -9,6 +9,8 @@ export const mySchema = appSchema({
         {name: 'name', type: 'string'},
         {name: 'email', type: 'string', isOptional: true},
         {name: 'role', type: 'string'},
+        // indexed column for case-insensitive sorting
+        {name: 'sortable_name', type: 'string', isIndexed: true},
       ],
     }),
   ],

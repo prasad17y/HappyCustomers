@@ -1,8 +1,5 @@
-import {RootStackParamList} from './types';
-
-export type ScreenName = keyof RootStackParamList;
-
-export const Screens: Record<ScreenName, ScreenName> = {
+export const Screens = {
   UserList: 'UserList',
   AddUser: 'AddUser',
-};
+  EditUser: 'EditUser',
+} as const;

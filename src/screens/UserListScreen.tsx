@@ -1,86 +1,66 @@
-import React, {useEffect, useState, useRef, useCallback} from 'react';
+import React, {
+  useEffect,
+  useState,
+  useRef,
+  useCallback,
+  useLayoutEffect,
+} from 'react';
 import {
   View,
   StyleSheet,
   ActivityIndicator,
   Animated,
   Text,
+  SafeAreaView,
 } from 'react-native';
 import PagerView, {
   PagerViewOnPageScrollEventData,
 } from 'react-native-pager-view';
-import {useDispatch, useSelector} from 'react-redux';
-import {RootState} from '../redux/root';
-import {clearSyncError, syncUsersRequest} from '../redux/users/actions';
-import {useUsers} from '../hooks/useUsers';
-import UserList from '../components/UserList';
-import FilterTabs from '../components/FilterTabs';
-import SearchBar from '../components/SearchBar';
-import ToggleButton from '../components/ToggleButton';
-import {Role} from '../types/types';
-import {DirectEventHandler} from 'react-native/Libraries/Types/CodegenTypes';
-import FloatingActionButton from '../components/FloatingActionButton';
 import {useNavigation} from '@react-navigation/native';
+import {useAppDispatch, useAppSelector} from '../redux/hooks';
+import {syncUsersRequest, clearSyncError} from '../redux/users/actions';
+import {FilterTab, Role} from '../types/types';
+import {DirectEventHandler} from 'react-native/Libraries/Types/CodegenTypes';
 import {RootStackNavigationProp} from '../navigation/types';
 import {Screens} from '../navigation/routes';
 import {ToastService} from '../services/ToastService';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import FilterBar from '../components/organisms/FilterBar';
+import UserListPage from '../components/organisms/UserListPage';
+import FloatingActionButton from '../components/molecules/FloatingActionButton';
+import {OnPageSelectedEventData} from 'react-native-pager-view/lib/typescript/PagerViewNativeComponent';
+import {selectUsersState, selectDbHasData} from '../redux/users/selectors';
 
-const TABS = ['All', 'Admin', 'Manager'];
+const LAZY_LOAD_PAGES = false; // flicker seen when enabled
 
-// Helper component to render each page
-const UserListPage = ({
-  role,
-  searchQuery,
-  isRefreshing,
-  onRefresh,
-}: {
-  role?: Role;
-  searchQuery: string;
-  isRefreshing: boolean;
-  onRefresh: () => void;
-}) => {
-  const users = useUsers(role, searchQuery);
-
-  return users === undefined ? (
-    <View style={styles.centered}>
-      <ActivityIndicator size={'large'} />
-    </View>
-  ) : (
-    <UserList users={users} refreshing={isRefreshing} onRefresh={onRefresh} />
-  );
-};
+const TABS = [
+  {key: 'all', title: 'All', role: undefined},
+  {key: 'admin', title: 'Admin', role: Role.ADMIN},
+  {key: 'manager', title: 'Manager', role: Role.MANAGER},
+] as FilterTab[];
 
 const UserListScreen = () => {
-  const dispatch = useDispatch();
-  const {isSyncing, syncError, lastSyncTimestamp} = useSelector(
-    (state: RootState) => state.users,
-  );
+  const dispatch = useAppDispatch();
+  const navigation = useNavigation<RootStackNavigationProp>();
+  const {isSyncing, syncError} = useAppSelector(selectUsersState);
+  const dbHasData = useAppSelector(selectDbHasData);
 
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
-  const [isSearchVisible, setIsSearchVisible] = useState(false);
-  const [isRefreshing, setIsRefreshing] = useState(false); // to show pull-to-refresh UI
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [mountedTabs, setMountedTabs] = useState<number[]>([0]);
   const pagerViewRef = useRef<PagerView>(null);
-  const navigation = useNavigation<RootStackNavigationProp>();
+  const scrollPosition = useRef(new Animated.Value(0)).current;
 
-  // animation values
-  const position = useRef(new Animated.Value(0)).current;
-  const offset = useRef(new Animated.Value(0)).current;
-  const scrollPosition = useRef(Animated.add(position, offset)).current;
-
-  useEffect(() => {
+  useLayoutEffect(() => {
     dispatch(syncUsersRequest({forceRefresh: false}));
   }, [dispatch]);
 
   useEffect(() => {
-    const dbHasData = !!lastSyncTimestamp;
     if (syncError && dbHasData) {
-      ToastService.showError(syncError);
+      ToastService.showError('Failed to refresh users.');
       dispatch(clearSyncError());
     }
-  }, [syncError, lastSyncTimestamp, dispatch]);
+  }, [syncError, dbHasData, dispatch]);
 
   // Stop the refresh indicator once the sync is complete
   useEffect(() => {
@@ -89,29 +69,15 @@ const UserListScreen = () => {
     }
   }, [isSyncing, isRefreshing]);
 
-  useEffect(() => {
-    const handler = setTimeout(() => setDebouncedSearchQuery(searchQuery), 300);
-    return () => clearTimeout(handler);
-  }, [searchQuery]);
-
-  const toggleSearch = useCallback(() => {
-    setIsSearchVisible(prev => {
-      if (prev) {
-        setSearchQuery('');
-      }
-      return !prev;
-    });
-  }, []);
-
-  const handleTabPress = (index: number) => {
+  const handleTabPress = (_tab: FilterTab, index: number) => {
     pagerViewRef.current?.setPage(index);
   };
 
   const handlePageScroll = useCallback<
     DirectEventHandler<PagerViewOnPageScrollEventData>
   >(event => {
-    position.setValue(event.nativeEvent.position);
-    offset.setValue(event.nativeEvent.offset);
+    const {position, offset} = event.nativeEvent;
+    scrollPosition.setValue(position + offset);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -127,7 +93,19 @@ const UserListScreen = () => {
     navigation.navigate(Screens.AddUser);
   };
 
-  const dbHasData = !!lastSyncTimestamp;
+  const handlePageSelected = useCallback<
+    DirectEventHandler<OnPageSelectedEventData>
+  >(
+    e => {
+      const index = e.nativeEvent.position;
+      setSelectedIndex(index);
+      if (LAZY_LOAD_PAGES && !mountedTabs.includes(index)) {
+        setMountedTabs([...mountedTabs, index]);
+      }
+    },
+    [mountedTabs],
+  );
+
   const isInitialLoading = !dbHasData && !syncError;
 
   return (
@@ -144,60 +122,35 @@ const UserListScreen = () => {
         </View>
       ) : (
         <View style={styles.container}>
-          <View style={styles.headerContainer}>
-            <View style={styles.filterBar}>
-              <FilterTabs
-                tabs={TABS}
-                selectedIndex={selectedIndex}
-                onTabPress={handleTabPress}
-                scrollPosition={scrollPosition}
-                style={styles.filterTabs}
-              />
-              <ToggleButton
-                onPress={toggleSearch}
-                isActive={isSearchVisible}
-                source={require('../assets/search.png')}
-              />
-            </View>
-            {isSearchVisible && (
-              <SearchBar value={searchQuery} onChangeText={setSearchQuery} />
-            )}
-          </View>
+          <FilterBar
+            tabs={TABS}
+            selectedIndex={selectedIndex}
+            onTabPress={handleTabPress}
+            scrollPosition={scrollPosition}
+            onSearchChange={setSearchQuery}
+            style={styles.filterTabs}
+          />
           <PagerView
             ref={pagerViewRef}
             style={styles.pagerView}
             initialPage={0}
-            onPageSelected={e => setSelectedIndex(e.nativeEvent.position)}
+            onPageSelected={handlePageSelected}
             onPageScroll={handlePageScroll}>
-            <View key="1">
-              <UserListPage
-                searchQuery={debouncedSearchQuery}
-                isRefreshing={isRefreshing}
-                onRefresh={onRefresh}
-              />
-            </View>
-            <View key="2">
-              <UserListPage
-                role={Role.ADMIN}
-                searchQuery={debouncedSearchQuery}
-                isRefreshing={isRefreshing}
-                onRefresh={onRefresh}
-              />
-            </View>
-            <View key="3">
-              <UserListPage
-                role={Role.MANAGER}
-                searchQuery={debouncedSearchQuery}
-                isRefreshing={isRefreshing}
-                onRefresh={onRefresh}
-              />
-            </View>
+            {TABS.map((tab, index) => (
+              <View key={tab.key}>
+                {!LAZY_LOAD_PAGES || mountedTabs.includes(index) ? (
+                  <UserListPage
+                    role={tab.role}
+                    searchQuery={searchQuery}
+                    isRefreshing={isRefreshing}
+                    onRefresh={onRefresh}
+                    isSelected={selectedIndex === index}
+                  />
+                ) : null}
+              </View>
+            ))}
           </PagerView>
-          <FloatingActionButton
-            onPress={handleAddUserPress}
-            label="+"
-            style={styles.floatingActionButtonStyle}
-          />
+          <FloatingActionButton onPress={handleAddUserPress} />
         </View>
       )}
     </SafeAreaView>
@@ -207,42 +160,30 @@ const UserListScreen = () => {
 const styles = StyleSheet.create({
   safeAreaView: {
     flex: 1,
+    backgroundColor: '#fff',
   },
   container: {
     flex: 1,
     backgroundColor: '#fff',
   },
-  headerContainer: {
-    paddingHorizontal: 16,
-  },
-  filterBar: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderRadius: 22,
-    marginVertical: 8,
-    height: 44,
-  },
   filterTabs: {
-    flex: 1,
+    marginTop: 8,
   },
   centered: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
+    backgroundColor: '#fff',
   },
   pagerView: {
     flex: 1,
+    marginTop: 8,
   },
   errorText: {
     fontSize: 16,
     color: 'red',
     textAlign: 'center',
-  },
-  floatingActionButtonStyle: {
-    position: 'absolute',
-    bottom: 30,
-    right: 30,
   },
 });
 

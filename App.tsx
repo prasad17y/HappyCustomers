@@ -9,6 +9,7 @@ import client from './src/apollo/client';
 import {store, persistor} from './src/redux/store';
 import Toast from 'react-native-toast-message';
 import {LogBox} from 'react-native';
+import GlobalToastManager from './src/components/organisms/GlobalToastManager';
 
 LogBox.ignoreLogs(['go.apollo.dev']);
 
@@ -24,6 +25,7 @@ const App = () => {
           </ApolloProvider>
         </SafeAreaProvider>
       </PersistGate>
+      <GlobalToastManager />
       <Toast />
     </Provider>
   );

@@ -1,30 +1,48 @@
 import {Epic} from 'redux-observable';
-import {of, from} from 'rxjs';
+import {of, from, concat} from 'rxjs';
 import {
   filter,
   switchMap,
   map,
   catchError,
   withLatestFrom,
+  mergeMap,
 } from 'rxjs/operators';
-import {SYNC_USERS_REQUEST, UsersActionTypes} from './types';
-import {syncUsersSuccess, syncUsersFailure} from './actions';
-import {syncData} from '../../db/actions';
+import {Action} from 'redux';
+import {
+  SYNC_USERS_REQUEST,
+  DELETE_USER_REQUEST,
+  ADD_USER_REQUEST,
+  UPDATE_USER_REQUEST,
+} from './types';
+import {
+  syncUsersSuccess,
+  syncUsersFailure,
+  deleteUserSuccess,
+  deleteUserFailure,
+  submitUserSuccess,
+  submitUserFailure,
+  setMutating,
+} from './actions';
+import {showToast} from '../notifications/actions';
+import {syncData, deleteUser, addUser, updateUser} from '../../db/actions';
 import {RootState} from '../root';
 import {database} from '../../db';
 import UserModel from '../../db/models/UserModel';
 
 const STALE_PERIOD_MS = 60 * 1000; // 1 minute for testing
 
-export const usersEpic: Epic<UsersActionTypes, UsersActionTypes, RootState> = (
-  action$,
-  state$,
-) =>
+const BUSY_ERROR_TOAST = showToast({
+  message: 'Operation in progress. Please try again later.',
+  type: 'error',
+});
+
+export const usersEpic: Epic<Action, Action, RootState> = (action$, state$) =>
   action$.pipe(
     filter(action => action.type === SYNC_USERS_REQUEST),
     withLatestFrom(state$),
     switchMap(([action, state]) => {
-      const forceRefresh = action.payload?.forceRefresh || false;
+      const forceRefresh = (action as any).payload?.forceRefresh || false;
       const {lastSyncTimestamp} = state.users;
 
       return from(shouldSync(forceRefresh, lastSyncTimestamp)).pipe(
@@ -75,3 +93,106 @@ const shouldSync = async (
   }
   return isStale;
 };
+
+export const deleteUserEpic: Epic<Action, Action, RootState> = (
+  action$,
+  state$,
+) =>
+  action$.pipe(
+    filter(action => action.type === DELETE_USER_REQUEST),
+    withLatestFrom(state$),
+    mergeMap(([action, state]) => {
+      if (state.users.isMutating) {
+        return of(BUSY_ERROR_TOAST);
+      }
+      const {userId, userName} = (action as any).payload;
+      return concat(
+        of(setMutating(true)), // get the lock
+        from(deleteUser(userId)).pipe(
+          mergeMap(() =>
+            of(
+              deleteUserSuccess(), // release the lock
+              showToast({
+                message: `User "${userName}" deleted.`,
+                type: 'success',
+              }),
+            ),
+          ),
+          catchError(() =>
+            of(
+              deleteUserFailure(), // release the lock
+              showToast({
+                message: `Failed to delete "${userName}".`,
+                type: 'error',
+              }),
+            ),
+          ),
+        ),
+      );
+    }),
+  );
+
+export const addUserEpic: Epic<Action, Action, RootState> = (action$, state$) =>
+  action$.pipe(
+    filter(action => action.type === ADD_USER_REQUEST),
+    withLatestFrom(state$),
+    mergeMap(([action, state]) => {
+      if (state.users.isMutating) {
+        return of(BUSY_ERROR_TOAST);
+      }
+      return concat(
+        of(setMutating(true)),
+        from(addUser((action as any).payload)).pipe(
+          mergeMap(() =>
+            of(
+              submitUserSuccess(),
+              showToast({
+                message: 'User created successfully!',
+                type: 'success',
+              }),
+            ),
+          ),
+          catchError(() =>
+            of(
+              submitUserFailure(),
+              showToast({message: 'Could not create user.', type: 'error'}),
+            ),
+          ),
+        ),
+      );
+    }),
+  );
+
+export const updateUserEpic: Epic<Action, Action, RootState> = (
+  action$,
+  state$,
+) =>
+  action$.pipe(
+    filter(action => action.type === UPDATE_USER_REQUEST),
+    withLatestFrom(state$),
+    mergeMap(([action, state]) => {
+      if (state.users.isMutating) {
+        return of(BUSY_ERROR_TOAST);
+      }
+      return concat(
+        of(setMutating(true)),
+        from(updateUser((action as any).payload)).pipe(
+          mergeMap(() =>
+            of(
+              submitUserSuccess(),
+              showToast({
+                message: 'User updated successfully!',
+                type: 'success',
+              }),
+            ),
+          ),
+          catchError(() =>
+            of(
+              submitUserFailure(),
+              showToast({message: 'Could not update user.', type: 'error'}),
+            ),
+          ),
+        ),
+      );
+    }),
+  );

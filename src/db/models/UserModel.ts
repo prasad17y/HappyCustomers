@@ -8,4 +8,6 @@ export default class UserModel extends Model {
   @field('name') name!: string;
   @field('email') email!: string | null;
   @field('role') role!: Role;
+
+  @field('sortable_name') sortableName!: string;
 }

@@ -4,17 +4,28 @@ import {database} from '../db';
 import UserModel from '../db/models/UserModel';
 import {UserType, Role} from '../types/types';
 
-// queries the database, and subscribes to changes
-// returns `undefined` while the initial data is being fetched from the local DB.
+interface UseUsersResult {
+  users: UserType[] | undefined;
+  error: Error | undefined;
+}
+
 export const useUsers = (
   roleFilter?: Role,
   searchQuery?: string,
-): UserType[] | undefined => {
+  isEnabled: boolean = true,
+): UseUsersResult => {
   const [users, setUsers] = useState<UserType[] | undefined>(undefined);
+  const [error, setError] = useState<Error | undefined>(undefined);
 
   useEffect(() => {
+    if (!isEnabled) {
+      return;
+    }
+
+    setError(undefined);
+
     const usersCollection = database.collections.get<UserModel>('users');
-    const queryConditions: any[] = [Q.sortBy('name', Q.asc)];
+    const queryConditions: any[] = [Q.sortBy('sortable_name', Q.asc)];
 
     // Add role filter
     if (roleFilter) {
@@ -32,18 +43,24 @@ export const useUsers = (
 
     const query = usersCollection.query(...queryConditions);
 
-    const subscription = query.observe().subscribe(latestUserModels => {
-      const userTypes: UserType[] = latestUserModels.map(user => ({
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
-      }));
-      setUsers(userTypes);
+    const subscription = query.observe().subscribe({
+      next: latestUserModels => {
+        const userTypes: UserType[] = latestUserModels.map(user => ({
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          role: user.role,
+        }));
+        setUsers(userTypes);
+      },
+      error: err => {
+        console.error('Error in useUsers subscription:', err);
+        setError(err);
+      },
     });
 
     return () => subscription.unsubscribe();
-  }, [roleFilter, searchQuery]); // Rerun if filter or search changes
+  }, [roleFilter, searchQuery, isEnabled]);
 
-  return users;
+  return {users, error};
 };
