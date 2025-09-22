@@ -1,0 +1,123 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`List should match the snapshot 1`] = `
+<RCTScrollView
+  contentContainerStyle={
+    {
+      "paddingBottom": 20,
+    }
+  }
+  data={
+    [
+      {
+        "data": [
+          {
+            "id": "1",
+            "name": "Alice",
+          },
+          {
+            "id": "2",
+            "name": "Alicia",
+          },
+        ],
+        "title": "A",
+      },
+      {
+        "data": [
+          {
+            "id": "3",
+            "name": "Bob",
+          },
+        ],
+        "title": "B",
+      },
+    ]
+  }
+  getItem={[Function]}
+  getItemCount={[Function]}
+  getItemLayout={[Function]}
+  initialNumToRender={15}
+  keyExtractor={[Function]}
+  maxToRenderPerBatch={10}
+  onContentSizeChange={[Function]}
+  onLayout={[Function]}
+  onMomentumScrollBegin={[Function]}
+  onMomentumScrollEnd={[Function]}
+  onScroll={[Function]}
+  onScrollBeginDrag={[Function]}
+  onScrollEndDrag={[Function]}
+  refreshControl={
+    <RefreshControlMock
+      onRefresh={[MockFunction]}
+      refreshing={false}
+    />
+  }
+  renderItem={[Function]}
+  scrollEventThrottle={0.0001}
+  stickyHeaderIndices={[]}
+  testID="sectionlist"
+  windowSize={5}
+>
+  <RCTRefreshControl />
+  <View>
+    <View
+      onFocusCapture={[Function]}
+      style={null}
+    >
+      <View>
+        <Text>
+          A
+        </Text>
+      </View>
+    </View>
+    <View
+      onFocusCapture={[Function]}
+      style={null}
+    >
+      <View>
+        <Text>
+          Alice
+        </Text>
+      </View>
+    </View>
+    <View
+      onFocusCapture={[Function]}
+      style={null}
+    >
+      <View>
+        <Text>
+          Alicia
+        </Text>
+      </View>
+    </View>
+    <View
+      onFocusCapture={[Function]}
+      style={null}
+    />
+    <View
+      onFocusCapture={[Function]}
+      style={null}
+    >
+      <View>
+        <Text>
+          B
+        </Text>
+      </View>
+    </View>
+    <View
+      onFocusCapture={[Function]}
+      style={null}
+    >
+      <View>
+        <Text>
+          Bob
+        </Text>
+      </View>
+    </View>
+    <View
+      onFocusCapture={[Function]}
+      style={null}
+    />
+  </View>
+</RCTScrollView>
+`;

@@ -1,0 +1,312 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FilterBar should render correctly and match the snapshot by default 1`] = `
+<View
+  style={
+    [
+      {
+        "paddingHorizontal": 16,
+      },
+      {},
+    ]
+  }
+>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "borderRadius": 22,
+        "flexDirection": "row",
+        "height": 44,
+      }
+    }
+  >
+    <View
+      onLayout={[Function]}
+      style={
+        [
+          {
+            "backgroundColor": "#f0f2f5",
+            "borderRadius": 22,
+            "height": 44,
+            "padding": 4,
+          },
+          {
+            "flex": 1,
+          },
+        ]
+      }
+      testID="filterbar-tabsgroup-container"
+    >
+      <View
+        style={
+          {
+            "flex": 1,
+            "flexDirection": "row",
+            "position": "relative",
+          }
+        }
+      >
+        <View
+          collapsable={false}
+          style={
+            {
+              "backgroundColor": "#e3effa",
+              "borderColor": "#0b5ac1",
+              "borderRadius": 18,
+              "borderWidth": 1,
+              "height": "100%",
+              "position": "absolute",
+              "transform": [
+                {
+                  "translateX": 0,
+                },
+              ],
+              "width": 64,
+            }
+          }
+        />
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "alignItems": "center",
+              "height": "100%",
+              "justifyContent": "center",
+              "opacity": 1,
+              "width": 64,
+            }
+          }
+          testID="filterbar-tabsgroup-0"
+        >
+          <Text
+            style={
+              [
+                {
+                  "color": "#666",
+                  "fontSize": 16,
+                  "fontWeight": "500",
+                },
+                {
+                  "color": "#0b5ac2",
+                  "fontWeight": "bold",
+                },
+              ]
+            }
+          >
+            All
+          </Text>
+        </View>
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "alignItems": "center",
+              "height": "100%",
+              "justifyContent": "center",
+              "opacity": 1,
+              "width": 64,
+            }
+          }
+          testID="filterbar-tabsgroup-1"
+        >
+          <Text
+            style={
+              [
+                {
+                  "color": "#666",
+                  "fontSize": 16,
+                  "fontWeight": "500",
+                },
+                false,
+              ]
+            }
+          >
+            Admin
+          </Text>
+        </View>
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "alignItems": "center",
+              "height": "100%",
+              "justifyContent": "center",
+              "opacity": 1,
+              "width": 64,
+            }
+          }
+          testID="filterbar-tabsgroup-2"
+        >
+          <Text
+            style={
+              [
+                {
+                  "color": "#666",
+                  "fontSize": 16,
+                  "fontWeight": "500",
+                },
+                false,
+              ]
+            }
+          >
+            Manager
+          </Text>
+        </View>
+      </View>
+    </View>
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "alignItems": "center",
+          "justifyContent": "center",
+          "opacity": 1,
+          "padding": 4,
+        }
+      }
+      testID="filterbar-toggle-button"
+    >
+      <View
+        style={
+          [
+            {
+              "alignItems": "center",
+              "borderRadius": 18,
+              "height": 36,
+              "justifyContent": "center",
+              "overflow": "hidden",
+              "width": 36,
+            },
+            false,
+          ]
+        }
+      >
+        <Image
+          source={
+            {
+              "testUri": "../../../src/assets/search.png",
+            }
+          }
+          style={
+            [
+              {
+                "height": 24,
+                "width": 24,
+              },
+              {
+                "height": 20,
+                "width": 20,
+              },
+            ]
+          }
+        />
+      </View>
+    </View>
+  </View>
+</View>
+`;

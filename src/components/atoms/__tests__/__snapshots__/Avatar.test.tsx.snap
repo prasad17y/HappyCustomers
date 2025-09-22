@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Avatar should handle an empty name without crashing and match snapshot 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "backgroundColor": "#e3effa",
+      "borderRadius": 4,
+      "height": 40,
+      "justifyContent": "center",
+      "width": 40,
+    }
+  }
+>
+  <Text
+    style={
+      {
+        "color": "#0b5ac2",
+        "fontSize": 16,
+        "fontWeight": "bold",
+      }
+    }
+  />
+</View>
+`;
+
+exports[`Avatar should render correctly and match the snapshot 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "backgroundColor": "#e3effa",
+      "borderRadius": 4,
+      "height": 40,
+      "justifyContent": "center",
+      "width": 40,
+    }
+  }
+>
+  <Text
+    style={
+      {
+        "color": "#0b5ac2",
+        "fontSize": 16,
+        "fontWeight": "bold",
+      }
+    }
+  >
+    J
+  </Text>
+</View>
+`;

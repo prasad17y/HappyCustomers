@@ -8,6 +8,7 @@ interface SearchBarProps {
   placeholder?: string;
   debounceDelay?: number;
   style?: StyleProp<ViewStyle>;
+  testID?: string;
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({
@@ -16,6 +17,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
   placeholder = 'Search',
   debounceDelay = 0,
   style,
+  testID = '',
 }) => {
   const [internalText, setInternalText] = useState(value);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -49,7 +51,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
   }, []);
 
   return (
-    <View style={[styles.container, style]}>
+    <View style={[styles.container, style]} testID={testID + '-search-bar'}>
       <Icon source={require('../../assets/search.png')} style={styles.icon} />
       <TextInput
         style={styles.input}

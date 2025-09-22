@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchBar should render correctly and match the snapshot 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "backgroundColor": "#f0f2f5",
+        "borderRadius": 10,
+        "flexDirection": "row",
+        "height": 40,
+        "paddingHorizontal": 10,
+      },
+      undefined,
+    ]
+  }
+  testID="-search-bar"
+>
+  <Image
+    source={
+      {
+        "testUri": "../../../src/assets/search.png",
+      }
+    }
+    style={
+      [
+        {
+          "height": 24,
+          "width": 24,
+        },
+        {
+          "height": 20,
+          "marginRight": 8,
+          "width": 20,
+        },
+      ]
+    }
+  />
+  <TextInput
+    clearButtonMode="while-editing"
+    onChangeText={[Function]}
+    placeholder="Search users"
+    placeholderTextColor="#8e8e93"
+    style={
+      {
+        "color": "#000",
+        "flex": 1,
+        "fontSize": 16,
+      }
+    }
+    value=""
+  />
+</View>
+`;

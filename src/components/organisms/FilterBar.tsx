@@ -45,11 +45,13 @@ const FilterBar: React.FC<FilterBarProps> = ({
           onTabPress={onTabPress}
           scrollPosition={scrollPosition}
           style={styles.tabsGroup}
+          testID="filterbar"
         />
         <ToggleButton
           onPress={toggleSearch}
           isActive={isSearchVisible}
           source={require('../../assets/search.png')}
+          testID="filterbar"
         />
       </View>
       {isSearchVisible && (
@@ -58,6 +60,7 @@ const FilterBar: React.FC<FilterBarProps> = ({
             value={searchText ?? ''}
             onChangeText={onSearchChange}
             debounceDelay={300}
+            testID="filterbar"
           />
         </View>
       )}

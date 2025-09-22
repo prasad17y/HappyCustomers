@@ -34,7 +34,10 @@ const UserListItem: React.FC<UserListItemProps> = ({user}) => {
         </View>
         {user.role === Role.ADMIN && <Text style={styles.role}>Admin</Text>}
       </View>
-      <TouchableOpacity onPress={handleDeletePress} style={styles.deleteButton}>
+      <TouchableOpacity
+        onPress={handleDeletePress}
+        style={styles.deleteButton}
+        testID="userlistitem-delete-button">
         <Icon source={require('../../assets/trash.png')} />
       </TouchableOpacity>
     </TouchableOpacity>

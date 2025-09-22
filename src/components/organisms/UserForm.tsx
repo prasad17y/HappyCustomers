@@ -118,6 +118,7 @@ const UserForm: React.FC<UserFormProps> = ({
                 setFieldValue('role', tab.role);
               }}
               style={styles.tabsGroup}
+              testID="userform"
             />
           </View>
           <View style={styles.footer}>

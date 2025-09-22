@@ -11,4 +11,13 @@ module.exports = {
     'node_modules/(?!(react-native|@react-native|react-redux|@react-navigation|redux-persist|react-native-pager-view)/)',
   ],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+
+  collectCoverage: true,
+  collectCoverageFrom: [
+    'src/**/*.{ts,tsx,js,jsx}', // include all app code
+    '!src/**/*.d.ts', // exclude type defs
+    '!src/**/__tests__/**', // exclude test files
+    '!src/**/index.{ts,tsx,js,jsx}', // optional: ignore barrel files
+  ],
+  coverageReporters: ['text', 'lcov', 'json', 'html'],
 };

@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StyledTextInput should apply an error style when hasError is true 1`] = `
+<View
+  style={
+    [
+      {
+        "borderBottomColor": "#e0e0e0",
+        "borderBottomWidth": 1,
+      },
+      {
+        "borderBottomColor": "red",
+      },
+    ]
+  }
+>
+  <TextInput
+    placeholder="Enter text"
+    placeholderTextColor="#a0a0a0"
+    style={
+      [
+        {
+          "color": "#191a1a",
+          "fontSize": 16,
+          "paddingVertical": 12,
+        },
+        undefined,
+      ]
+    }
+    value="Test"
+  />
+</View>
+`;
+
+exports[`StyledTextInput should render correctly and match the snapshot 1`] = `
+<View
+  style={
+    [
+      {
+        "borderBottomColor": "#e0e0e0",
+        "borderBottomWidth": 1,
+      },
+      undefined,
+    ]
+  }
+>
+  <TextInput
+    placeholder="Enter text"
+    placeholderTextColor="#a0a0a0"
+    style={
+      [
+        {
+          "color": "#191a1a",
+          "fontSize": 16,
+          "paddingVertical": 12,
+        },
+        undefined,
+      ]
+    }
+    value="Test"
+  />
+</View>
+`;

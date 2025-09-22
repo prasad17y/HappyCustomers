@@ -88,6 +88,7 @@ const List = <ItemT, SectionT>({
       }
       ListEmptyComponent={ListEmptyComponent}
       ListFooterComponent={ListFooterComponent}
+      testID="sectionlist"
     />
   );
 };

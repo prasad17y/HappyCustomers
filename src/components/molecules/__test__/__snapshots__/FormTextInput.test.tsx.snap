@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FormTextInput should match the snapshot 1`] = `
+<View
+  style={
+    {
+      "marginBottom": 8,
+    }
+  }
+>
+  <View
+    style={
+      [
+        {
+          "borderBottomColor": "#e0e0e0",
+          "borderBottomWidth": 1,
+        },
+        false,
+      ]
+    }
+  >
+    <TextInput
+      onChangeText={[MockFunction]}
+      placeholderTextColor="#a0a0a0"
+      style={
+        [
+          {
+            "color": "#191a1a",
+            "fontSize": 16,
+            "paddingVertical": 12,
+          },
+          undefined,
+        ]
+      }
+      value="snapshot"
+    />
+  </View>
+  <View
+    style={
+      {
+        "height": 20,
+        "justifyContent": "center",
+      }
+    }
+  />
+</View>
+`;

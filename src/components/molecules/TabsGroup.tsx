@@ -68,7 +68,7 @@ const TabsGroup = <T extends Tab>({
   return (
     <View
       style={[styles.containerWrapper, style]}
-      testID={testID + '-filter-tabs-container'}
+      testID={testID + '-tabsgroup-container'}
       onLayout={onLayout}>
       {containerWidth > 0 && (
         <View style={styles.container}>
@@ -81,7 +81,7 @@ const TabsGroup = <T extends Tab>({
           {tabs.map((tab, index) => (
             <TouchableOpacity
               key={tab.key}
-              testID={testID + '-filter-tab-' + index}
+              testID={testID + '-tabsgroup-' + index}
               style={[styles.tab, {width: tabWidth}]}
               onPress={() => onTabPress(tab, index)}>
               <Text

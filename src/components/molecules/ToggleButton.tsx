@@ -7,15 +7,20 @@ interface ToggleButtonProps {
   onPress: () => void;
   isActive: boolean;
   source: ImageSourcePropType;
+  testID?: string;
 }
 
 const ToggleButton: React.FC<ToggleButtonProps> = ({
   onPress,
   isActive,
   source,
+  testID = '',
 }) => {
   return (
-    <Button onPress={onPress} style={styles.button}>
+    <Button
+      onPress={onPress}
+      style={styles.button}
+      testID={testID + '-toggle-button'}>
       <View style={[styles.iconWrapper, isActive && styles.iconWrapperActive]}>
         <Icon source={source} style={styles.icon} />
       </View>

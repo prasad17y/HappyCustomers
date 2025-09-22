@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FloatingActionButton should match the snapshot 1`] = `
+<View
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    {
+      "alignItems": "center",
+      "backgroundColor": "#0b5ac2",
+      "borderRadius": 30,
+      "bottom": 30,
+      "elevation": 8,
+      "height": 60,
+      "justifyContent": "center",
+      "opacity": 1,
+      "position": "absolute",
+      "right": 30,
+      "shadowColor": "#000",
+      "shadowOffset": {
+        "height": 4,
+        "width": 0,
+      },
+      "shadowOpacity": 0.3,
+      "shadowRadius": 4,
+      "width": 60,
+    }
+  }
+>
+  <Text
+    style={
+      {
+        "color": "#fff",
+        "fontSize": 30,
+        "lineHeight": 32,
+      }
+    }
+  >
+    +
+  </Text>
+</View>
+`;
