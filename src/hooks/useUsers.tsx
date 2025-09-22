@@ -43,6 +43,10 @@ export const useUsers = (
 
     const query = usersCollection.query(...queryConditions);
 
+    // The observable emits on subscription, and afterwards only if the query results change
+    // query results are considered to be changed if:
+    // 1. A row is added or deleted in the query result
+    // 2. if sortby is present, then observable emits if order of query results change
     const subscription = query.observe().subscribe({
       next: latestUserModels => {
         const userTypes: UserType[] = latestUserModels.map(user => ({
