@@ -8,8 +8,18 @@ import AppNavigator from './src/navigation/AppNavigator';
 import client from './src/apollo/client';
 import {store, persistor} from './src/redux/store';
 import Toast from 'react-native-toast-message';
-import {LogBox} from 'react-native';
+import {DevSettings, LogBox, NativeModules} from 'react-native';
 import GlobalToastManager from './src/components/organisms/GlobalToastManager';
+
+if (DevSettings && NativeModules?.DevSettings?.setIsDebuggingRemotely) {
+  DevSettings.addMenuItem('Debug JS Remotely', () => {
+    try {
+      NativeModules?.DevSettings?.setIsDebuggingRemotely(true);
+    } catch (error) {
+      console.warn('Failed to enable remote debugging:', error);
+    }
+  });
+}
 
 LogBox.ignoreLogs(['go.apollo.dev']);
 

@@ -7,7 +7,8 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
-    "test": "jest"
+    "test": "jest",
+    "start:debug": "npx react-native-debugger-open --open --port 8081 && react-native start"
   },
   "dependencies": {
     "@apollo/client": "^3.7.14",
@@ -52,7 +53,9 @@
     "jest": "^29.6.3",
     "metro-react-native-babel-preset": "^0.77.0",
     "prettier": "2.8.8",
+    "react-native-debugger-open": "^0.4.3",
     "react-test-renderer": "18.2.0",
+    "redux-devtools-extension": "^2.13.9",
     "typescript": "5.0.4"
   },
   "engines": {
