@@ -1,3 +1,5 @@
+import {REHYDRATE} from 'redux-persist';
+
 export interface UsersState {
   isSyncing: boolean; // For fetching and storing data
   isMutating: boolean; // used as lock for all mutations
@@ -76,6 +78,12 @@ interface SetMutatingAction {
   payload: boolean;
 }
 
+interface RehydrateAction {
+  type: typeof REHYDRATE;
+  payload?: {users: UsersState}; // The payload will contain our persisted state
+  error?: any;
+}
+
 export type UsersActionTypes =
   | SyncUsersRequestAction
   | SyncUsersSuccessAction
@@ -88,4 +96,5 @@ export type UsersActionTypes =
   | UpdateUserRequestAction
   | SubmitUserSuccessAction
   | SubmitUserFailureAction
-  | SetMutatingAction;
+  | SetMutatingAction
+  | RehydrateAction;

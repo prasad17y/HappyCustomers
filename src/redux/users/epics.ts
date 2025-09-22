@@ -48,9 +48,15 @@ export const usersEpic: Epic<Action, Action, RootState> = (action$, state$) =>
       return from(shouldSync(forceRefresh, lastSyncTimestamp)).pipe(
         switchMap(shouldSync => {
           if (shouldSync) {
-            return from(syncData()).pipe(
-              map(() => syncUsersSuccess({didFetch: true})),
-              catchError(err => of(syncUsersFailure(err.message))),
+            if (state.users.isMutating) {
+              return of(BUSY_ERROR_TOAST);
+            }
+            return concat(
+              of(setMutating(true)),
+              from(syncData()).pipe(
+                map(() => syncUsersSuccess({didFetch: true})),
+                catchError(err => of(syncUsersFailure(err.message))),
+              ),
             );
           }
           return of(syncUsersSuccess({didFetch: false}));

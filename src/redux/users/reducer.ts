@@ -1,3 +1,4 @@
+import {REHYDRATE} from 'redux-persist';
 import {
   UsersState,
   UsersActionTypes,
@@ -26,8 +27,21 @@ export const usersReducer = (
   action: UsersActionTypes,
 ): UsersState => {
   switch (action.type) {
+    case REHYDRATE:
+      if (action.payload?.users) {
+        return {
+          ...state,
+          lastSyncTimestamp: action.payload.users.lastSyncTimestamp || null,
+          // Reset all states
+          isSyncing: false,
+          isMutating: false,
+          syncError: null,
+        };
+      }
+      return state;
+
     case SYNC_USERS_REQUEST:
-      return {...state, isSyncing: true, isMutating: true, syncError: null};
+      return {...state, isSyncing: true, syncError: null};
     case ADD_USER_REQUEST:
     case UPDATE_USER_REQUEST:
     case DELETE_USER_REQUEST:
