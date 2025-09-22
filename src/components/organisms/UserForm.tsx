@@ -20,9 +20,18 @@ export const validationSchema = yup.object().shape({
     .required('Last Name is required.'),
   email: yup
     .string()
-    .transform(value => (value === '' ? undefined : value))
-    .email('Please enter a valid email address.')
-    .nullable(),
+    .trim()
+    .test(
+      'is-valid-or-empty',
+      'Please enter a valid email address.',
+      (value: any) => {
+        // .email() allows "john@doe", hence we need this elaborate test
+        if (value === '') {
+          return true;
+        }
+        return value ? /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) : true;
+      },
+    ),
   fullName: yup
     .string()
     .test(

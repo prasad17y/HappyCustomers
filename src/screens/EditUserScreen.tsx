@@ -92,7 +92,7 @@ const EditUserScreen = () => {
             />
           ) : (
             <View style={styles.centered}>
-              <ActivityIndicator size="large" />
+              <ActivityIndicator size="large" testID="activity-indicator" />
             </View>
           )}
         </View>
