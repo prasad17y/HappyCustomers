@@ -149,11 +149,12 @@ export const updateUser = async ({
       const userToUpdate = await database.collections
         .get<UserModel>('users')
         .find(userId);
-
+      const fullName = `${firstName} ${lastName}`;
       await userToUpdate.update(user => {
-        user.name = `${firstName} ${lastName}`;
+        user.name = fullName;
         user.email = email;
         user.role = role;
+        user.sortableName = fullName.toLowerCase();
       });
     });
     console.log(`User with ID ${userId} updated successfully.`);
