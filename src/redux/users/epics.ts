@@ -27,10 +27,7 @@ import {
 import {showToast} from '../notifications/actions';
 import {syncData, deleteUser, addUser, updateUser} from '../../db/actions';
 import {RootState} from '../root';
-import {database} from '../../db';
-import UserModel from '../../db/models/UserModel';
-
-const STALE_PERIOD_MS = 60 * 1000; // 1 minute for testing
+import {shouldSync} from '../../utils/syncUtils';
 
 const BUSY_ERROR_TOAST = showToast({
   message: 'Operation in progress. Please try again later.',
@@ -64,41 +61,6 @@ export const usersEpic: Epic<Action, Action, RootState> = (action$, state$) =>
       );
     }),
   );
-
-const shouldSync = async (
-  forceRefresh: boolean,
-  lastSyncTimestamp: string | null,
-) => {
-  if (forceRefresh) {
-    console.log('Sync forced by user action.');
-    return true;
-  }
-
-  const userCount = await database.collections
-    .get<UserModel>('users')
-    .query()
-    .fetchCount();
-  if (userCount === 0) {
-    console.log('Sync required: No local data.');
-    return true;
-  }
-
-  if (!lastSyncTimestamp) {
-    console.log('Sync required: No last sync timestamp found.');
-    return true;
-  }
-
-  const isStale =
-    new Date().getTime() - new Date(lastSyncTimestamp).getTime() >
-    STALE_PERIOD_MS;
-
-  if (isStale) {
-    console.log('Sync required: Data is stale.');
-  } else {
-    console.log('Sync not required: Data is fresh.');
-  }
-  return isStale;
-};
 
 export const deleteUserEpic: Epic<Action, Action, RootState> = (
   action$,
