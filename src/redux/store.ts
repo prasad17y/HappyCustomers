@@ -3,6 +3,7 @@ import {createEpicMiddleware} from 'redux-observable';
 import {persistStore, persistReducer} from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {rootReducer, rootEpic, RootState} from './root';
+import {composeWithDevTools} from 'redux-devtools-extension';
 
 const persistConfig = {
   key: 'root',
@@ -19,7 +20,7 @@ const epicMiddleware = createEpicMiddleware<Action, Action, RootState, any>();
 
 export const store = createStore(
   persistedReducer,
-  applyMiddleware(epicMiddleware),
+  composeWithDevTools(applyMiddleware(epicMiddleware)),
 );
 
 export type AppDispatch = typeof store.dispatch;
