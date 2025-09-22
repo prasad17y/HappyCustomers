@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
   },
   selectedTabText: {
     color: '#0b5ac2',
-    fontWeight: 'bold',
+    fontWeight: '500',
   },
 });
 

@@ -115,7 +115,7 @@ exports[`FilterBar should render correctly and match the snapshot by default 1`]
                 },
                 {
                   "color": "#0b5ac2",
-                  "fontWeight": "bold",
+                  "fontWeight": "500",
                 },
               ]
             }

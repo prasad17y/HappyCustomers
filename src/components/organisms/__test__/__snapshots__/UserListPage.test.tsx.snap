@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserListPage should match the snapshot for a successful render 1`] = `
+<View
+  testID="mock-list"
+>
+  <Text>
+    Sections: 1
+  </Text>
+  <Text>
+    Refreshing: false
+  </Text>
+</View>
+`;

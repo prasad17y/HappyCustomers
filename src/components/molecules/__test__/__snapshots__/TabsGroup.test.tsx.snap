@@ -147,7 +147,7 @@ exports[`TabsGroup should apply selected styles to the currently selected tab 1`
             },
             {
               "color": "#0b5ac2",
-              "fontWeight": "bold",
+              "fontWeight": "500",
             },
           ]
         }
@@ -306,7 +306,7 @@ exports[`TabsGroup should render all tabs correctly and match the snapshot 1`] =
             },
             {
               "color": "#0b5ac2",
-              "fontWeight": "bold",
+              "fontWeight": "500",
             },
           ]
         }

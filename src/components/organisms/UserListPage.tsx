@@ -88,7 +88,7 @@ const UserListPage: React.FC<UserListPageProps> = ({
   if (users === undefined) {
     return (
       <View style={styles.centered}>
-        <ActivityIndicator />
+        <ActivityIndicator testID="activity-indicator" />
       </View>
     );
   }
